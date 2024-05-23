@@ -5,6 +5,7 @@ import {
     Row,
     Jumbotron
 } from "react-bootstrap";
+import CustomNewProjectCard from './CustomNewProjectCard';
 
 const CustomProjects = ({heading,data}) => {
     return (  
@@ -14,10 +15,11 @@ const CustomProjects = ({heading,data}) => {
                     <h2 className="display-4 mb-5 text-center">
                         {heading}
                     </h2>
-                    <Row>
+                    <Row style={{display: 'flex' , justifyContent: 'space-evenly'}}>
                         {
                             data.map((element,index) => {
-                                return <CustomProjectCard key={index} data={element} />
+                                // return <CustomProjectCard key={index} data={element} />
+                                return <CustomNewProjectCard key={index} data={element} />
                             })
                         }
                     </Row>

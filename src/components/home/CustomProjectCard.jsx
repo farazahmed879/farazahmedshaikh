@@ -1,31 +1,29 @@
-import React from 'react';
-
-import {
-    Col,
-    Card
-} from "react-bootstrap";
+import React from "react";
+import { Col, Card } from "react-bootstrap";
 const CustomProjectCard = ({ data }) => {
-    console.log("data", data);
-    return (
-        <Card>
-            <Col lg="12">
-                <div className="text-center">
-                    {/* <img className="bg-white" src={data.companylogo} alt="" /> */}
-                    <h3>{data.name}</h3>
-                    <p>
-                        {data.description}
-                        <br />
-                    </p>
-                    {/* <Language lang={data.lang} /> */}
-                    <label>Front-End: <b>{data.frontEnd}</b></label>
-                    <br />
-                    <label>Back-End: <b>{data.backEnd}</b></label>
-
-                </div>
-            </Col>
-        </Card>
-    );
-}
+  return (
+    <Card>
+      <Col lg="12">
+        <div className="text-center">
+          {/* <img className="bg-white" src={data.companylogo} alt="" /> */}
+          <h3>{data.name}</h3>
+          <p>
+            {data.description}
+            <br />
+          </p>
+          {/* <Language lang={data.lang} /> */}
+          <label>
+            Front-End: <b>{data.frontEnd}</b>
+          </label>
+          <br />
+          <label>
+            Back-End: <b>{data.backEnd}</b>
+          </label>
+        </div>
+      </Col>
+    </Card>
+  );
+};
 
 // const Language = ({ lang }) => {
 //     console.log("LAng", lang);
@@ -53,6 +51,5 @@ const CustomProjectCard = ({ data }) => {
 //         </div>
 //     );
 // };
-
 
 export default CustomProjectCard;

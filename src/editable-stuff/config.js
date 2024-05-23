@@ -34,7 +34,7 @@ const mainBody = {
     {
       image: "fa-stack-overflow",
       url: "https://stackoverflow.com/users/6877527/faraz-shaikh",
-    }
+    },
   ],
 };
 
@@ -45,7 +45,8 @@ const about = {
   imageSize: 375,
   message:
     "Experienced Developer & Consultant with a demonstrated history of working in the computer software industry. Skilled in Android, Databases, Mobile Applications, Web Design, and Java. Strong consulting professional graduated from Indus University.",
-  resume: "https://drive.google.com/file/d/1uH1ZWBrjlb9C4pIND6w3G33qmjLDYxjV/view?usp=sharing",
+  resume:
+    "https://drive.google.com/file/d/1uH1ZWBrjlb9C4pIND6w3G33qmjLDYxjV/view?usp=sharing",
 };
 
 // PROJECTS SECTION
@@ -63,7 +64,7 @@ const repos = {
 
 // Leadership SECTION
 const leadership = {
-  show: false,
+  show: true,
   heading: "Leadership",
   message:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae auctor eu augue ut lectus arcu bibendum at varius. Libero justo laoreet sit amet cursus sit amet. Imperdiet dui accumsan sit amet nulla facilisi morbi. At auctor urna nunc id. Iaculis urna id volutpat lacus laoreet non curabitur gravida. Et magnis dis parturient montes nascetur ridiculus mus mauris. In nisl nisi scelerisque eu ultrices vitae auctor. Mattis nunc sed blandit libero volutpat sed cras ornare. Pulvinar neque laoreet suspendisse interdum consectetur libero.",
@@ -71,18 +72,18 @@ const leadership = {
     {
       img: require("../editable-stuff/faraz.jpg"),
       label: "First slide label",
-      paragraph: "Nulla vitae elit libero, a pharetra augue mollis interdum."
+      paragraph: "Nulla vitae elit libero, a pharetra augue mollis interdum.",
     },
     {
       img: require("../editable-stuff/faraz.jpg"),
       label: "Second slide label",
-      paragraph: "Nulla vitae elit libero, a pharetra augue mollis interdum."
+      paragraph: "Nulla vitae elit libero, a pharetra augue mollis interdum.",
     },
   ],
   imageSize: {
     width: "615",
-    height: "450"
-  }
+    height: "450",
+  },
 };
 
 // SKILLS SECTION
@@ -97,7 +98,7 @@ const skills = {
     { name: "JavaScript", value: 90 },
     { name: "JQuery", value: 90 },
     { name: "HTML/CSS", value: 55 },
-    { name: "SQL Database", value: 80 }
+    { name: "SQL Database", value: 80 },
   ],
   softSkills: [
     { name: "Goal-Oriented", value: 80 },
@@ -118,7 +119,7 @@ const skills = {
     { name: "Chinese Language", value: 5 },
     { name: "Japanese Language", value: 20 },
     { name: "Creativity", value: 90 },
-  ]
+  ],
 };
 
 // GET IN TOUCH SECTION
@@ -135,25 +136,28 @@ const experiences = {
   heading: "Experiences",
   data: [
     {
-      companyName: 'Zone Delivery Services',
-      role: 'Software Developer',
-      description: 'Work here as a software developer. Basically Zone is leading company based out of UAE which offers delivery related solutions to businesses, where my core resposibility to handle front-end developement of their All Web Portals.',
-      companylogo: require('../assets/img/boeing.png'),
-      date: 'Jan 2021 – Continue',
+      companyName: "Zone Delivery Services",
+      role: "Software Developer",
+      description:
+        "Work here as a software developer. Basically Zone is leading company based out of UAE which offers delivery related solutions to businesses, where my core resposibility to handle front-end developement of their All Web Portals.",
+      companylogo: require("../assets/img/boeing.png"),
+      date: "Jan 2021 – Continue",
     },
     {
-      companyName: 'TeachnologyPlex', 
-      role: 'Full-Stack Developer',
-      description: 'I worked here as a full-stack developer. TechnologyPlex is a project based sofware house. where my resposibilities to handle back-end on dotnet and front-end on angular and successfully done two main projects Rhithm and Sellution',
-      companylogo: require('../assets/img/boeing.png'),
-      date: 'Nov 2019 – Dec 2020',
+      companyName: "TeachnologyPlex",
+      role: "Full-Stack Developer",
+      description:
+        "I worked here as a full-stack developer. TechnologyPlex is a project based sofware house. where my resposibilities to handle back-end on dotnet and front-end on angular and successfully done two main projects Rhithm and Sellution",
+      companylogo: require("../assets/img/boeing.png"),
+      date: "Nov 2019 – Dec 2020",
     },
     {
-      companyName: 'ClinarIT Sollution',
-      role: 'Full-Stack Developer',
-      description: 'Clinar IT Sollution is product based software house located in karachi. They had two Medical Project Clinical Pearl and Journal Club. I am the founder memeber to build this project. Core resposibilities to handle front-end on angular and back-end on dotnet',
-      companylogo: require('../assets/img/boeing.png'),
-      date: 'Mar 2018 –  Nov 2019',
+      companyName: "ClinarIT Sollution",
+      role: "Full-Stack Developer",
+      description:
+        "Clinar IT Sollution is product based software house located in karachi. They had two Medical Project Clinical Pearl and Journal Club. I am the founder memeber to build this project. Core resposibilities to handle front-end on angular and back-end on dotnet",
+      companylogo: require("../assets/img/boeing.png"),
+      date: "Mar 2018 –  Nov 2019",
     },
     // {
     //   companyName: 'FriendsBit',
@@ -163,99 +167,173 @@ const experiences = {
     //   date: 'Jan 2018 – Nov 2017',
     // },
     {
-      companyName: 'TechnoLab360',
-      role: 'Front-End Developer',
-      description: 'Technolab360 is a product based software house. It start working here a front-end developer. It was most quality time i spend here and learned alot what i have. My core responsibilities are to create Web Pages on angular CRUD operations API integeration etc.',
-      companylogo: require('../assets/img/dell.png'),
-      date: 'Apr 2017 – Dec 2017',
+      companyName: "TechnoLab360",
+      role: "Front-End Developer",
+      description:
+        "Technolab360 is a product based software house. It start working here a front-end developer. It was most quality time i spend here and learned alot what i have. My core responsibilities are to create Web Pages on angular CRUD operations API integeration etc.",
+      companylogo: require("../assets/img/dell.png"),
+      date: "Apr 2017 – Dec 2017",
     },
     {
-      companyName: 'Indus University',
-      role: 'Marketing Intern',
-      description: 'I am supposed to be very lucky, where i studied and got offer from the same organization during my studies to be part of their staff as a marketing intern. Basically I used to create/edit videos and graphics designing.',
-      companylogo: require('../assets/img/dell.png'),
-      date: 'January 2017 - Apr 2017',
+      companyName: "Indus University",
+      role: "Marketing Intern",
+      description:
+        "I am supposed to be very lucky, where i studied and got offer from the same organization during my studies to be part of their staff as a marketing intern. Basically I used to create/edit videos and graphics designing.",
+      companylogo: require("../assets/img/dell.png"),
+      date: "January 2017 - Apr 2017",
     },
-   
-    
-   
-  ]
-}
+  ],
+};
 
 const customProjects = {
   show: true,
-  heading: "Projects",
+  heading: "Here are a few of my favorite projects.",
   data: [
     {
-      name: 'ScoreExec',
-      description: 'Cricket Scoring Web App',
-      companylogo: require('../assets/img/boeing.png'),
-      frontEnd: 'React',
-      backEnd: 'Dot Net',
-      lang: [ {name: 'Angular' },{name: 'React' }]
+      name: "MSP",
+      description: "Custom CRM",
+      companylogo: require("../assets/img/zone.png"),
+      frontEnd: "React",
+      backEnd: "Spring Boot",
+      link: 'https://ridersouq.com/login/',
+      lang: [
+        { name: "React", variant: "success" },
+        { name: "Spring Boot", variant: "primary" },
+        { name: "Material UI", variant: "danger" },
+        { name: "AWS", variant: "info" },
+        { name: "MongoDb", variant: "warning" }
+      ],
     },
     {
-      name: 'Rhithm',
-      description: 'School-Based Mental Health.',
-      companylogo: require('../assets/img/boeing.png'),
-      frontEnd: 'Angular',
-      backEnd: 'Dot Net',
-      lang: [ {name: 'Angular'},{name: 'React' }]
+      name: "ScoreExec",
+      description: "Cricket Scoring Web App",
+      companylogo: require("../assets/img/rhithm.png"),
+      frontEnd: "React",
+      backEnd: "Dot Net",
+      lang: [
+        { name: "React", variant: "success" },
+        { name: "Donet", variant: "warning" },
+        { name: "SQL server", variant: "info" },
+        { name: "ANTD", variant: "secondary" },
+      ],
+      link: 'www.scoeexec.com',
     },
     {
-      name: 'Earnonnet',
-      description: 'Web Advertisement App',
-      companylogo: require('../assets/img/boeing.png'),
-      frontEnd: 'Angular',
-      backEnd: 'Dot Net',
-      lang: [ {name: 'Angular'},{name: 'React' }]
+      name: "Dar Auctions",
+      description: "Property Selling and purchasing",
+      companylogo: require("../assets/img/darauctions.png"),
+      frontEnd: "React",
+      backEnd: "Dot Net",
+      lang: [
+        { name: "Vue Js", variant: "success" },
+        { name: "Tailwind", variant: "primary" }
+      ],
+      link: 'https://darauction.com/',
     },
     {
-      name: 'Sellution',
-      description: 'CRM Sales platform',
-      companylogo: require('../assets/img/boeing.png'),
-      frontEnd: 'Custome Js FW',
-      backEnd: 'Dot Net',
-      lang: [ {name: 'Angular'},{name: 'React' }]
+      name: "Rhithm",
+      description: "School-Based Mental Health.",
+      companylogo: require("../assets/img/rhithm.png"),
+      frontEnd: "Angular",
+      backEnd: "Dot Net",
+      link: 'https://rhithm.app/',
+      lang: [
+        { name: "Angular", variant: "danger" },
+        { name: "Bootstrap", variant: "secondary" },
+        { name: "Dotnet", variant: "warning" },
+        { name: "SQL Server", variant: "info" },
+      ],
+    },
+    // {
+    //   name: "Earnonnet",
+    //   description: "Web Advertisement App",
+    //   companylogo: require("../assets/img/boeing.png"),
+    //   frontEnd: "Angular",
+    //   backEnd: "Dot Net",
+    //   lang: [
+    //     { name: "React", variant: "light" },
+    //     { name: "Dotnet", variant: "info" },
+    //     { name: "SQL Server", variant: "success" },
+    //   ],
+    // },
+    {
+      name: "Sellution",
+      description: "CRM Sales platform",
+      companylogo: require("../assets/img/selllution.png"),
+      frontEnd: "Custome Js FW",
+      backEnd: "Dot Net",
+      link: 'https://www.sellution.com/',
+      lang: [
+        { name: "JQuery", variant: "danger" },
+        { name: "Dotnet", variant: "success" },
+      ],
     },
     {
-      name: 'Journal Club',
-      description: 'Medical Univeristy Portal',
-      companylogo: require('../assets/img/boeing.png'),
-      frontEnd: 'Angular',
-      backEnd: 'Dot Net',
-      lang: [ {name: 'Angular'},{name: 'React' }]
+      name: "Journal Club",
+      description: "Medical Univeristy Portal",
+      companylogo: require("../assets/img/jc.png"),
+      frontEnd: "Angular",
+      backEnd: "Dot Net",
+      link:'https://journalclub.net/',
+      lang: [
+        { name: "Angular", variant: "success" },
+        { name: "Dotnet", variant: "danger" },
+        { name: "SQL Server", variant: "info" },
+        { name: "Material UI", variant: "dark" },
+      ],
     },
-    {
-      name: 'Trot Drive',
-      description: 'Rider Booking Application',
-      companylogo: require('../assets/img/boeing.png'),
-      frontEnd: 'Angular',
-      backEnd: 'Node Js',
-      lang: [ {name: 'Angular'},{name: 'React' }]
-    },
-    {
-      name: 'MMC HR',
-      description: 'Human Resource Outsourcing (HRO) & Consulting',
-      companylogo: require('../assets/img/boeing.png'),
-      frontEnd: 'Razor',
-      backEnd: 'Dot Net MVC',
-      lang: [ {name: 'Angular'},{name: 'React' }]
-    },
-    {
-      name: 'SGS-Vendor-Compliances',
-      description: 'Multi-Tenant Application (SaaS)',
-      companylogo: require('../assets/img/boeing.png'),
-      frontEnd: 'Angular Js',
-      backEnd: 'Dot Net',
-      lang: [ {name: 'Angular'},{name: 'React' }]
-    },
-  ]
-}
+    // {
+    //   name: "Trot Drive",
+    //   description: "Rider Booking Application",
+    //   companylogo: require("../assets/img/boeing.png"),
+    //   frontEnd: "Angular",
+    //   backEnd: "Node Js",
+    //   lang: [
+    //     { name: "Angular", variant: "info" },
+    //     { name: "Node Js", variant: "success" },
+    //     { name: "Mongo Db", variant: "primary" }
+    //   ],
+    // },
+    // {
+    //   name: "MMC HR",
+    //   description: "Human Resource Outsourcing (HRO) & Consulting",
+    //   companylogo: require("../assets/img/boeing.png"),
+    //   frontEnd: "Razor",
+    //   backEnd: "Dot Net MVC",
+    //   lang: [
+    //     { name: "Razor", variant: "warning" },
+    //     { name: "Dotnet", variant: "info" },
+    //     { name: "Bootstrap", variant: "success" },
+    //   ],
+    // },
+    // {
+    //   name: "SGS-Vendor-Compliances",
+    //   description: "Multi-Tenant Application (SaaS)",
+    //   companylogo: require("../assets/img/boeing.png"),
+    //   frontEnd: "Angular Js",
+    //   backEnd: "Dot Net",
+    //   lang: [
+    //     { name: "AngularJs", variant: "info" },
+    //     { name: "Dotnet", variant: "warning" },
+    //   ],
+    // },
+  ],
+  link: 'https://ridersouq.com/login/'
+};
 
 // Blog SECTION
 // const blog = {
 //   show: false,
 // };
 
-export { navBar, mainBody, about, repos, skills, leadership, getInTouch, experiences,customProjects };
+export {
+  navBar,
+  mainBody,
+  about,
+  repos,
+  skills,
+  leadership,
+  getInTouch,
+  experiences,
+  customProjects,
+};

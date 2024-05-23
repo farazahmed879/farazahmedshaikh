@@ -4,7 +4,6 @@ import {
     Col
 } from "react-bootstrap";
 const ExperienceCard = ({data}) => {
-debugger
     return (
         <Col lg="6">
             <div className="text-center">
