@@ -207,7 +207,7 @@ const customProjects = {
     {
       name: "ScoreExec",
       description: "Cricket Scoring Web App",
-      companylogo: require("../assets/img/rhithm.png"),
+      companylogo: require("../assets/img/scoreexec.png"),
       frontEnd: "React",
       backEnd: "Dot Net",
       lang: [
