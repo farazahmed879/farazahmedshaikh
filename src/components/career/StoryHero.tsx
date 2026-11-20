@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import type { Profile, Story } from "@/lib/types";
 import PlayerCard from "@/components/site/PlayerCard";
 import { CrowdFlashes } from "@/components/site/cricket";

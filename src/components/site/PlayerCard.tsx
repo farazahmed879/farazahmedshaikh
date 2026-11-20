@@ -1,7 +1,9 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { m as motion } from "framer-motion";
+import Image from "next/image";
 import { CricketBall } from "./cricket";
+import { KIT } from "./palette";
 
 type Props = {
   photo: string;
@@ -15,11 +17,12 @@ type Props = {
 
 /** A collectible player trading card with 3D tilt, a spinning ball and optional floating emoji stickers. */
 export default function PlayerCard({ photo, name, label, sub, stamp, stickers = [], delay = 0.4 }: Props) {
-  const mx = useMotionValue(0.5);
-  const my = useMotionValue(0.5);
-  const rotateX = useSpring(useTransform(my, [0, 1], [10, -10]), { stiffness: 180, damping: 18 });
-  const rotateY = useSpring(useTransform(mx, [0, 1], [-12, 12]), { stiffness: 180, damping: 18 });
-  const shine = useTransform(mx, [0, 1], ["0%", "100%"]);
+  // 3D tilt follows the pointer via CSS variables; a CSS transition gives it the springy ease.
+  const tilt = (el: HTMLElement, x: number, y: number) => {
+    el.style.setProperty("--rx", `${10 - y * 20}deg`);
+    el.style.setProperty("--ry", `${x * 24 - 12}deg`);
+    el.style.setProperty("--shine", `${x * 100}%`);
+  };
 
   const spots = [
     "-left-10 top-6",
@@ -49,25 +52,21 @@ export default function PlayerCard({ photo, name, label, sub, stamp, stickers = 
         >
           <span
             className="animate-float flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-pitch-950 text-3xl shadow-[4px_4px_0_#03140d]"
-            style={{ background: ["#ffb020", "#ff5fa2", "#38bdf8", "#c4f442", "#ff8a2a", "#a78bfa", "#f5efdc"][i % 7], animationDelay: `${i * 0.6}s`, ["--r" as string]: `${i % 2 ? 8 : -8}deg` }}
+            style={{ background: [...KIT, "#f5efdc"][i % (KIT.length + 1)], animationDelay: `${i * 0.6}s`, ["--r" as string]: `${i % 2 ? 8 : -8}deg` }}
           >
             {s}
           </span>
         </motion.span>
       ))}
 
-      <motion.div
+      <div
         onPointerMove={(e) => {
           const r = e.currentTarget.getBoundingClientRect();
-          mx.set((e.clientX - r.left) / r.width);
-          my.set((e.clientY - r.top) / r.height);
+          tilt(e.currentTarget, (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
         }}
-        onPointerLeave={() => {
-          mx.set(0.5);
-          my.set(0.5);
-        }}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="relative rounded-[26px] border-4 border-pitch-950 bg-chalk p-3 shadow-[12px_12px_0_rgba(0,0,0,0.45)]"
+        onPointerLeave={(e) => tilt(e.currentTarget, 0.5, 0.5)}
+        style={{ transform: "rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))", transformStyle: "preserve-3d" }}
+        className="relative transition-transform duration-300 ease-out rounded-[26px] border-4 border-pitch-950 bg-chalk p-3 shadow-[12px_12px_0_rgba(0,0,0,0.45)]"
       >
         {/* team stripes */}
         <div className="flex items-center gap-3 px-1 pb-2">
@@ -81,15 +80,17 @@ export default function PlayerCard({ photo, name, label, sub, stamp, stickers = 
 
         <div className="relative overflow-hidden rounded-2xl border-2 border-pitch-950 bg-pitch-800">
           {photo ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={photo} alt={name} className="aspect-[4/5] w-full object-cover" />
+            <div className="relative aspect-[4/5] w-full">
+              {/* Above the fold, so preload it; Next.js serves a resized WebP/AVIF copy. */}
+              <Image src={photo} alt={name} fill preload sizes="(max-width: 640px) 80vw, 360px" className="object-cover" />
+            </div>
           ) : (
             <div className="aspect-[4/5] w-full" />
           )}
-          <motion.div
+          <div
             aria-hidden
-            style={{ left: shine }}
-            className="pointer-events-none absolute -inset-y-10 w-24 -translate-x-1/2 rotate-12 bg-white/25 blur-xl"
+            style={{ left: "var(--shine, 50%)" }}
+            className="pointer-events-none absolute -inset-y-10 w-24 -translate-x-1/2 rotate-12 bg-white/25 blur-xl transition-[left] duration-300 ease-out"
           />
           <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
         </div>
@@ -116,7 +117,7 @@ export default function PlayerCard({ photo, name, label, sub, stamp, stickers = 
             {stamp}
           </motion.div>
         )}
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

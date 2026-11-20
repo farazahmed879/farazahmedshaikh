@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m as motion } from "framer-motion";
 import { HiOutlineMail } from "react-icons/hi";
 import type { Profile } from "@/lib/types";
 import SectionHeading from "./SectionHeading";

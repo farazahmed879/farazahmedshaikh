@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { AnimatePresence, m as motion } from "framer-motion";
 import type { StorySpotlight } from "@/lib/types";
 import SectionHeading from "@/components/site/SectionHeading";
 import { kit } from "@/components/site/palette";
@@ -216,18 +217,34 @@ function PhotoReel({ photos, title }: { photos: string[]; title: string }) {
 
   const i = Math.min(active, photos.length - 1);
 
+  // Swipe without framer's drag feature (keeps the lightweight animation bundle).
+  const swipeStart = useRef<number | null>(null);
+  const onSwipeStart = (e: React.PointerEvent) => {
+    if (many) swipeStart.current = e.clientX;
+  };
+  const onSwipeEnd = (e: React.PointerEvent) => {
+    if (swipeStart.current === null) return;
+    const dx = e.clientX - swipeStart.current;
+    swipeStart.current = null;
+    if (dx < -50) go(1);
+    else if (dx > 50) go(-1);
+  };
+
   return (
     <div
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       className="relative rotate-[-1.2deg] rounded-[1.5rem] border-[3px] border-pitch-950 bg-chalk p-2.5 shadow-[8px_8px_0_rgba(3,20,13,0.35)] transition-transform duration-300 hover:rotate-0"
     >
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[1rem] bg-pitch-950">
+      <div
+        onPointerDown={onSwipeStart}
+        onPointerUp={onSwipeEnd}
+        onPointerCancel={() => (swipeStart.current = null)}
+        className={`relative aspect-[4/3] touch-pan-y overflow-hidden rounded-[1rem] bg-pitch-950 select-none ${many ? "cursor-grab active:cursor-grabbing" : ""}`}
+      >
         <AnimatePresence initial={false} custom={dir}>
-          <motion.img
+          <motion.div
             key={i}
-            src={photos[i]}
-            alt={`${title} — photo ${i + 1}`}
             custom={dir}
             variants={{
               enter: (d: number) => ({ x: `${d * 100}%`, opacity: 0.4 }),
@@ -238,16 +255,17 @@ function PhotoReel({ photos, title }: { photos: string[]; title: string }) {
             animate="center"
             exit="exit"
             transition={{ duration: 0.55, ease }}
-            drag={many ? "x" : false}
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.6}
-            onDragEnd={(_, info) => {
-              if (info.offset.x < -60) go(1);
-              else if (info.offset.x > 60) go(-1);
-            }}
-            draggable={false}
-            className="absolute inset-0 h-full w-full cursor-grab object-cover active:cursor-grabbing"
-          />
+            className="absolute inset-0"
+          >
+            <Image
+              src={photos[i]}
+              alt={`${title} — photo ${i + 1}`}
+              fill
+              draggable={false}
+              sizes="(max-width: 1024px) 88vw, 460px"
+              className="object-cover"
+            />
+          </motion.div>
         </AnimatePresence>
 
         {many && (

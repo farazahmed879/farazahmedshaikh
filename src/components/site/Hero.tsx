@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import type { Profile } from "@/lib/types";
 import Typewriter from "./Typewriter";
 import SocialIcon, { socialMeta } from "./SocialIcon";

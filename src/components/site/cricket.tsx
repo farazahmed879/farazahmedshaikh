@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 
 /** A red leather cricket ball with a stitched seam. */
 export function CricketBall({ className = "h-6 w-6" }: { className?: string }) {

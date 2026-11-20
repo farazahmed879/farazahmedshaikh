@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m as motion } from "framer-motion";
 import type { SkillCategory } from "@/lib/types";
 import SectionHeading from "./SectionHeading";
 // Shots alternate amber and cream so they stand out on the green field.

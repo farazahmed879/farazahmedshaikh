@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, m as motion } from "framer-motion";
 import { HiOutlineMenuAlt4, HiX } from "react-icons/hi";
 import { CricketBall } from "./cricket";
 
@@ -22,11 +22,15 @@ export default function Navbar({
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
+  const progressRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      // reading progress bar at the very top of the page
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (progressRef.current) progressRef.current.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -54,7 +58,7 @@ export default function Navbar({
 
   return (
     <>
-      <motion.div style={{ scaleX: progress }} className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-amber shadow-[0_0_12px_#ffb020]" />
+      <div ref={progressRef} style={{ transform: "scaleX(0)" }} className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-amber shadow-[0_0_12px_#ffb020] transition-transform duration-150 ease-out" />
       <motion.header
         initial={{ y: -90 }}
         animate={{ y: 0 }}
@@ -85,13 +89,12 @@ export default function Navbar({
                 >
                   {link.label}
                 </a>
-                {active === link.id && (
-                  <motion.span
-                    layoutId="nav-led"
-                    className="absolute inset-x-3 -bottom-0.5 h-[3px] rounded-full bg-amber shadow-[0_0_10px_#ffb020]"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
+                <span
+                  aria-hidden
+                  className={`absolute inset-x-3 -bottom-0.5 h-[3px] origin-center rounded-full bg-amber shadow-[0_0_10px_#ffb020] transition-transform duration-300 ${
+                    active === link.id ? "scale-x-100" : "scale-x-0"
+                  }`}
+                />
               </li>
             ))}
           </ul>

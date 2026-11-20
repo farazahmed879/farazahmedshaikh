@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { m as motion } from "framer-motion";
+import Image from "next/image";
 import { FaGithub } from "react-icons/fa6";
 import type { Project } from "@/lib/types";
 import SectionHeading from "./SectionHeading";
@@ -49,23 +50,19 @@ export default function Projects({ items }: { items: Project[] }) {
           </div>
         )}
 
-        <motion.div layout className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout">
-            {visible.map((project, i) => (
+        <div key={filter} className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+          {visible.map((project, i) => (
               <motion.div
                 key={project.id ?? project.name}
-                layout
                 initial={{ opacity: 0, y: 50, rotate: i % 2 ? 3 : -3 }}
                 whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.8 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Ticket project={project} index={items.indexOf(project)} />
               </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -104,13 +101,15 @@ function Ticket({ project, index }: { project: Project; index: number }) {
       <div className="flex flex-1 flex-col rounded-b-3xl border-2 border-t-0 border-pitch-950 bg-chalk p-5 text-pitch-950 shadow-[8px_8px_0_rgba(0,0,0,0.4)]">
         <div className="overflow-hidden rounded-xl border-2 border-pitch-950/10 bg-white">
           {project.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={project.image}
-              alt={project.name}
-              loading="lazy"
-              className="aspect-[16/10] w-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
-            />
+            <div className="relative aspect-[16/10] w-full">
+              <Image
+                src={project.image}
+                alt={project.name}
+                fill
+                sizes="(max-width: 768px) 92vw, (max-width: 1024px) 46vw, 360px"
+                className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
           ) : (
             <div
               className="relative flex aspect-[16/10] items-center justify-center overflow-hidden"

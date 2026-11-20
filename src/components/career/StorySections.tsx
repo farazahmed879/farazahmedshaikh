@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
+import Image from "next/image";
 import { HiOutlineAcademicCap, HiOutlineMail } from "react-icons/hi";
 import type { Profile, Story } from "@/lib/types";
 import SectionHeading from "@/components/site/SectionHeading";
@@ -357,8 +358,15 @@ export function Gallery({ story }: { story: Story }) {
               className="relative mb-6 break-inside-avoid bg-chalk p-3 pb-12 shadow-[8px_8px_0_rgba(0,0,0,0.45)]"
             >
               <span className="absolute -top-3 left-1/2 h-6 w-20 -translate-x-1/2 rotate-[-3deg] opacity-80" style={{ background: kit(i) }} />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.image} alt={p.caption || ""} loading="lazy" className="w-full" />
+              {/* width/height only reserve space; h-auto keeps each photo's real proportions */}
+              <Image
+                src={p.image}
+                alt={p.caption || ""}
+                width={800}
+                height={600}
+                sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 360px"
+                className="h-auto w-full"
+              />
               {p.caption && <figcaption className="font-display absolute inset-x-3 bottom-3 text-xl font-extrabold text-pitch-950 uppercase">{p.caption}</figcaption>}
             </motion.figure>
           ))}

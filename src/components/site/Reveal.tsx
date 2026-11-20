@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { m as motion, type Variants } from "framer-motion";
 
 type Props = {
   children: React.ReactNode;

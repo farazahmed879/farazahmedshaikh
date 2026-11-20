@@ -1,37 +1,54 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring, useVelocity, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { CricketBall } from "./cricket";
 
-/** A small cricket ball that chases the pointer and spins as it moves (mouse users only). */
+/**
+ * A small cricket ball that chases the pointer and spins as it moves (mouse users only).
+ * Plain requestAnimationFrame easing — no animation library needed for this.
+ */
 export default function BallCursor() {
   const [enabled, setEnabled] = useState(false);
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  const sx = useSpring(x, { stiffness: 260, damping: 22, mass: 0.5 });
-  const sy = useSpring(y, { stiffness: 260, damping: 22, mass: 0.5 });
-  const vx = useVelocity(sx);
-  const rotate = useTransform(vx, (v) => v / 4);
-  const spin = useSpring(rotate, { stiffness: 50, damping: 20 });
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!fine || reduced) return;
-    setEnabled(true);
+    if (fine && !reduced) setEnabled(true);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
+    const target = { x: -100, y: -100 };
+    const pos = { x: -100, y: -100 };
+    let spin = 0;
+    let frame = 0;
+
     const move = (e: PointerEvent) => {
-      x.set(e.clientX + 14);
-      y.set(e.clientY + 14);
+      target.x = e.clientX + 14;
+      target.y = e.clientY + 14;
     };
+    const tick = () => {
+      const dx = (target.x - pos.x) * 0.22;
+      pos.x += dx;
+      pos.y += (target.y - pos.y) * 0.22;
+      spin += dx * 1.2; // rolls in the direction it travels
+      if (ref.current) ref.current.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) rotate(${spin}deg)`;
+      frame = requestAnimationFrame(tick);
+    };
+
     window.addEventListener("pointermove", move, { passive: true });
-    return () => window.removeEventListener("pointermove", move);
-  }, [x, y]);
+    frame = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener("pointermove", move);
+      cancelAnimationFrame(frame);
+    };
+  }, [enabled]);
 
   if (!enabled) return null;
   return (
-    <motion.div aria-hidden style={{ x: sx, y: sy, rotate: spin }} className="pointer-events-none fixed top-0 left-0 z-[80] drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
+    <div ref={ref} aria-hidden className="pointer-events-none fixed top-0 left-0 z-[80] drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)] will-change-transform">
       <CricketBall className="h-5 w-5" />
-    </motion.div>
+    </div>
   );
 }

@@ -8,6 +8,7 @@ import Footer from "@/components/site/Footer";
 import StoryHero from "@/components/career/StoryHero";
 import Spotlights from "@/components/career/Spotlights";
 import { Chapters, Connect, Dream, Education, Gallery, Goals, Passions } from "@/components/career/StorySections";
+import MotionProvider from "@/components/site/MotionProvider";
 
 export const revalidate = 60;
 
@@ -34,22 +35,24 @@ export default async function CareerPage() {
   ].filter(Boolean) as { id: string; label: string; href?: string }[];
 
   return (
-    <div className="relative min-h-screen overflow-x-clip">
-      <Background />
-      <BallCursor />
-      <Navbar brand={profile.shortName || profile.name} brandHref="/" links={links} resumeUrl={profile.resumeUrl} />
-      <main className="relative z-10">
-        <StoryHero story={story} profile={profile} />
-        {story.spotlights?.length > 0 && <Spotlights items={story.spotlights} />}
-        {story.chapters.length > 0 && <Chapters story={story} />}
-        {story.education.length > 0 && <Education story={story} />}
-        {story.passions.length > 0 && <Passions story={story} />}
-        {story.goals.length > 0 && <Goals story={story} />}
-        {story.dreamTitle && <Dream story={story} />}
-        <Gallery story={story} />
-        <Connect story={story} profile={profile} />
-      </main>
-      <Footer profile={profile} />
-    </div>
+    <MotionProvider>
+      <div className="relative min-h-screen overflow-x-clip">
+        <Background />
+        <BallCursor />
+        <Navbar brand={profile.shortName || profile.name} brandHref="/" links={links} resumeUrl={profile.resumeUrl} />
+        <main className="relative z-10">
+          <StoryHero story={story} profile={profile} />
+          {story.spotlights?.length > 0 && <Spotlights items={story.spotlights} />}
+          {story.chapters.length > 0 && <Chapters story={story} />}
+          {story.education.length > 0 && <Education story={story} />}
+          {story.passions.length > 0 && <Passions story={story} />}
+          {story.goals.length > 0 && <Goals story={story} />}
+          {story.dreamTitle && <Dream story={story} />}
+          <Gallery story={story} />
+          <Connect story={story} profile={profile} />
+        </main>
+        <Footer profile={profile} />
+      </div>
+    </MotionProvider>
   );
 }

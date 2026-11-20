@@ -228,7 +228,7 @@ export const defaultProfile: Profile = {
   bio:
     "I'm an adaptable and responsible software developer with 9+ years of experience in full-stack and front-end development. Today I'm the Front-End Lead at Jami Partners, architecting enterprise platforms with React and Next.js. Before that, I spent over three years leading web development for Zone Delivery Service, a UAE fleet logistics company.\n\nI work across the whole stack — React, Next.js, Angular and Vue on the front-end; .NET Core, C#, Node.js and Python on the back-end; SQL Server, PostgreSQL, MySQL and MongoDB for data; and AWS, Azure, DigitalOcean and Docker to ship it. I'm a Silver Medalist in Computer Science from Indus University and I'm now pursuing an MS in Computer Science, specialising in AI, at Iqra University.",
   location: "Karachi, Pakistan",
-  resumeUrl: "https://drive.google.com/file/d/1uH1ZWBrjlb9C4pIND6w3G33qmjLDYxjV/view?usp=sharing",
+  resumeUrl: "https://docs.google.com/document/d/1MwX72Kvc1XGpsKdjhWxsYaUvZfpnUXfKKYan8YspIyo/preview",
   stats: [
     { value: "9+", label: "Years of experience" },
     { value: "5", label: "Companies" },
