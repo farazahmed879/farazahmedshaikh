@@ -1,53 +1,35 @@
 {
-  "name": "developers-portfolio",
-  "description": "A personal static website/portfolio template hosted with GitHub Pages, built to showcase my recent projects.",
-  "homepage": "https://testingtestingfaraz.000webhostapp.com",
-  "version": "2.0.0",
+  "name": "faraz-portfolio",
+  "version": "3.0.0",
   "private": true,
+  "description": "Personal portfolio of Faraz Ahmed Shaikh — Next.js + MongoDB with an admin panel for editing content.",
   "author": {
     "name": "Faraz Ahmed Shaikh",
-    "email": "farazahmedshaikh879@gmail.com",
     "url": "https://github.com/farazahmed879"
   },
-  "dependencies": {
-    "axios": "^0.19.2",
-    "bootstrap": "^4.6.2",
-    "gh-pages": "^2.2.0",
-    "jquery": "^3.7.1",
-    "node-sass": "^4.14.1",
-    "prop-types": "^15.8.1",
-    "react": "^16.14.0",
-    "react-bootstrap": "^1.6.8",
-    "react-dom": "^16.14.0",
-    "react-loading-skeleton": "^2.2.0",
-    "react-router": "^5.3.4",
-    "react-router-dom": "^5.3.4",
-    "react-scripts": "^3.4.4",
-    "react-typist": "^2.0.5",
-    "typescript": "^3.9.10"
-  },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "custom-deploy": "node pages.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "tsc --noEmit"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "framer-motion": "^14.14.0",
+    "jose": "^6.2.18",
+    "mongoose": "^9.12.2",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-icons": "^5.7.0",
+    "server-only": "^0.0.1"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.5",
+    "@types/node": "^22",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^5"
   }
 }

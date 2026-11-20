@@ -1,217 +1,52 @@
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <h1 align="center">Developer's Portfolio ✨</h1>
+# Faraz Ahmed Shaikh — Portfolio
 
-  <p align="center">
-    It is a personal static website/portfolio template hosted with GitHub Pages, built to showcase my recent projects. Site URL / Demo: 
-    <a href="https://github.com/farazahmed879">farazahmed879.github.io</a>
-    <br />
-    <br />
-    <a href="https://testingtestingfaraz.000webhostapp.com/">About Me</a>
-    ·
-    <a href="https://github.com/farazahmed879/home/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/farazahmed879/home/issues">Request Feature</a>
-  </p>
-</p>
+Personal portfolio built with **Next.js 16 (App Router)**, **Tailwind CSS 4**, **Framer Motion** and **MongoDB**, with a built-in **admin panel** for editing all content without touching code.
 
-![GitHub contributors](https://img.shields.io/github/contributors/farazahmed879/home?color=ffcc66&style=for-the-badge)
-![GitHub stars](https://img.shields.io/github/stars/farazahmed879/home?color=ffcc66&style=for-the-badge)
-[![GitHub forks](https://img.shields.io/github/forks/farazahmed879/home?style=for-the-badge)](https://github.com/farazahmed879/star_book/network)
-[![GitHub issues](https://img.shields.io/github/issues/farazahmed879/home?color=ffcc66&style=for-the-badge)](https://github.com/farazahmed879/star_book/issues)
-[![GitHub license](https://img.shields.io/github/license/farazahmed879/home?style=for-the-badge)](https://github.com/farazahmed879/home/blob/master/LICENSE)
-[![Twitter Follow](https://img.shields.io/twitter/follow/farazahmed879?color=ffcc66&logo=twitter&logoColor=ffffff&style=for-the-badge)](https://twitter.com/farazahmed879)
+## Features
 
-[![Site preview](/public/social-image.png)](https://farazahmed879.github.io/)
+- Animated single-page site: hero with typewriter roles, about + count-up stats, scroll-drawn experience timeline, filterable 3D-tilt project cards, tabbed skill bars + marquee, live GitHub repos, contact form.
+- Admin panel at `/admin`: edit profile/hero/about/contact, social links, section visibility, SEO, experience, projects, skills (drag-to-reorder), upload images & resume, read contact-form messages.
+- Content lives in MongoDB. On first connection to an empty database the site seeds itself with the default content in [`src/lib/defaults.ts`](src/lib/defaults.ts).
+- Pages are statically generated and refreshed automatically whenever you save in the admin panel.
 
-## Table of Contents
+## Getting started
 
-- [Technology Stack 🛠️](#technology-stack-)
-- [Structure ⚓](#structure-)
-- [Sharing 💗](#sharing-)
-- [Prerequisites 🍪](#prerequisites-)
-- [Setup And Deployment 🔧](#setup-and-deployment-)
-- [Contributing 🙌](#contributing-)
-- [Issues](#issues)
-- [Upcoming Features / Improvements 🔗](#upcoming-features-/-improvements-)
-- [Showcase 🚀](#showcase-)
-- [Versão em Português :brazil:](#versao-em-portugues-)
+```bash
+npm install
+cp .env.example .env.local   # then fill in the values
+npm run dev                  # http://localhost:3000  ·  admin: http://localhost:3000/admin
+```
 
-## Technology Stack 🛠️
+### Admin login
 
-Dependencies defined in package.json:
+On first run an admin account is created in MongoDB with username **`admin`** and password **`admin`**. Sign in at `/admin` and change it right away under **Account & password** — the panel shows a warning until you do. Changing the login signs out all other sessions.
 
-[Reactjs](https://reactjs.org/)
-| [Bootstrap](https://getbootstrap.com/)
-| [Typist](https://github.com/jstejada/react-typist)
-| [GitHub API](https://developer.github.com/v3/repos/)
-| [Instagram API](https://www.instagram.com/developer/embedding/)
+### Environment variables
 
-## Structure ⚓
+| Variable | Purpose |
+| --- | --- |
+| `MONGODB_URI` | MongoDB connection string (e.g. Atlas) |
+| `AUTH_SECRET` | Random string (32+ chars) used to sign the session cookie |
+| `NEXT_PUBLIC_SITE_URL` | Public URL of the site, used for SEO metadata |
+| `GITHUB_TOKEN` *(optional)* | Raises the GitHub API rate limit for the repos section |
 
-- Navigation bar (optional)
-- Body
-  - Name | Profession
-  - Contact / Follow / Find me / Facebook / LinkedIn / GitHub / Instagram / Email / CodePen
-  - Resume | About me
-- About Me
-  - Display picture (optional)
-  - About myself, my Interests, Goals and Hobbies
-  - Things I'm good at (Skills)
-  - Resume button
-- Recent Projects (using GitHub API) (optional)
-- Leadership (optional)
-  - Paragraph
-  - Carousel images
-- Skills (optional)
-  - Technical Skills
-  - Soft Skills
-- Footer
-  - Footer Note (optional)
-  - Copyrights - open source
-  - Acknowledgements(
+## Project structure
 
-## Sharing 💗
+```
+src/
+  app/
+    page.tsx                 public site
+    admin/login              admin sign-in
+    admin/(panel)/…          dashboard, profile, experience, projects, skills, messages
+    api/                     contact form, media, auth, admin CRUD
+  components/site/           public UI sections
+  components/admin/          admin UI (forms, collection manager, sidebar)
+  lib/                       db connection, models, auth, content loading, defaults
+public/images/               bundled images
+```
 
-Project is open source. Feel free to make your own version. All you need to do is to fork this repository, edit [src/editable-stuff/config.js](./src/editable-stuff/config.js) and add resume. Mark star ⭐ if you like the project.
+## Deployment
 
-## Prerequisites 🍪
+Deploy to **Vercel** (recommended): import the repo, add the environment variables above, deploy. In MongoDB Atlas → Network Access, allow connections from Vercel (e.g. `0.0.0.0/0`).
 
-You should have [Node.js](https://nodejs.org/en/) and [Git](https://git-scm.com/) installed on your PC. You should also own a GitHub account.
-
-## Setup And Deployment 🔧
-
-1. To Get Started, Fork this repository to your GitHub account:
-2. Clone the forked repo from your account using:
-
-   ```bash
-     git clone https://github.com/<your-username>/home.git
-   ```
-
-3. Open in editor and edit [src/editable-stuff/config.js](./src/editable-stuff/config.js) file.
-
-4. Add your resume as <resume.pdf> in place of [src/editable-stuff/resume.pdf](./src/editable-stuff/)
-
-5. Edit [title](./public/index.html#L34) and meta [description](./public/index.html#L13) in [public/index.html](./public/index.html).
-6. Change URL in [package.json](./package.json) file:
-
-   ```json
-    "homepage": "https://<your-username>.github.io/home"
-   ```
-
-   Or for deployment at custom domain, refer [create-react-app.dev](https://create-react-app.dev/docs/deployment/#step-1-add-homepage-to-packagejson)
-
-7. After editing run the following bash commands:
-
-   ```bash
-   npm install
-   npm start
-   ```
-
-8. To deploy website, run:
-
-   ```bash
-    npm run build
-    npm run deploy
-   ```
-
-   Or for deployment at \<username>.github.io, refer [READMEdocs/custom-deployment.md](./READMEdocs/custom-deployment.md) and [pages.js](./pages.js)
-
-9. Congrats your site is up and running. To see it live, visit:
-
-   ```https
-     https://<your-username>.github.io/home
-   ```
-
-10. To change the thumbnail image:
-
-    - Navigate to the "public" folder.  
-    - There you will see "social-image.png".  
-    - Delete it.   
-    - Take a screenshot of your version and rename it "social-image.png" and place it there.  
-    
-   Next time if you make changes, repeat from step 8.
-
-Facing issues? Feel free to contact at farazahmedshaikh879@gmail.com.
-
-## Contributing 🙌
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-## Issues
-
-If anyone is looking to make some contribution, the following are issues that you can solve:
-
-- [ ] UI improvements
-- [ ] Code optimization
-- [x] Routing
-- [ ] SEO
-
-## Showcase 🚀
-
-Have you changed something in the code to create your own version? Feel free to share with me, I will list them in this space.
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/justiceserv/justiceserv.github.io">
-        <img src="READMEdocs/justiceserv-github-io-home.gif" width="300px" alt="" />
-        <br />
-        <sub><b>Guhyun Chung</b></sub>
-      </a>
-      <br />
-    </td>
-    <td align="center">
-      <a href="https://github.com/hamzasohail0/home/">
-        <img src="READMEdocs/hamzasohail0-github-io-home.gif" width="300px" alt="" />
-        <br />
-        <sub><b>Hamza Sohail</b></sub>
-      </a>
-      <br />
-    </td>
-    <td align="center">
-      <a href="https://github.com/AymunTariq/home/">
-        <img src="READMEdocs/aymuntariq-github-io-home.gif" width="300px" alt="" />
-        <br />
-        <sub><b>Aymun Tariq</b></sub>
-      </a>
-      <br />
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/anaashrafi/home/">
-        <img src="READMEdocs/anaashrafi-github-io-home.gif" width="300px" alt="" />
-        <br />
-        <sub><b>Ana Ashrafi</b></sub>
-      </a>
-      <br />
-    </td>
-    <td align="center">
-      <a href="https://github.com/jefferyjohn/home/">
-        <img src="READMEdocs/jefferyjohn-github-io-home.gif" width="300px" alt="" />
-        <br />
-        <sub><b>Jeffery John</b></sub>
-      </a>
-      <br />
-    </td>
-    <td align="center">
-      <a href="https://github.com/remimestdagh/home/">
-        <img src="READMEdocs/remimestdagh-github-io-home.gif" width="300px" alt="" />
-        <br />
-        <sub><b>Remi Mestdagh</b></sub>
-      </a>
-      <br />
-    </td>
-  </tr>
-</table>
-
-## Versão em Português :brazil:
-
-Esse projeto foi traduzido para português! Se você gostou dele e quer criar a sua própria versão, confira o repositório do [@tashima42](https://github.com/tashima42) em [https://github.com/Tashima42/home](https://github.com/Tashima42/home).
-Novas contribuições e revisões na tradução são muito bem vindas!
-
-## Stargazers over time
-
-[![Stargazers over time](https://starchart.cc/farazahmed879/home.svg)](https://starchart.cc/farazahmed879/home)
+Uploaded images are stored in MongoDB (max 4 MB each) and served from `/api/media/:id`.
