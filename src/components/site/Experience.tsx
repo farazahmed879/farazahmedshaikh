@@ -68,11 +68,9 @@ export default function ExperienceSection({ items }: { items: Experience[] }) {
                     <span className="cond col-start-2 text-xs text-chalk/50 md:col-start-auto">{item.period}</span>
                     <span className="col-start-3 row-start-1 text-right md:col-start-auto md:row-start-auto">
                       {current ? (
-                        <span className="led led-green text-sm">
-                          NOT OUT<span className="animate-blink">*</span>
-                        </span>
+                        <span className="led led-green text-sm">Current</span>
                       ) : (
-                        <span className="cond text-[11px] text-chalk/40">Innings done</span>
+                        <span className="cond text-[11px] text-chalk/40">Completed</span>
                       )}
                     </span>
                   </button>

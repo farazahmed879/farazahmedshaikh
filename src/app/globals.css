@@ -136,15 +136,15 @@
     content: "";
     position: absolute;
     inset: 8px;
-    border: 2px dashed rgb(227 52 63 / 0.5);
+    border: 2px dashed rgb(3 20 13 / 0.18);
     border-radius: inherit;
     pointer-events: none;
   }
 
-  /* highlighter: amber text with a ball-red marker stroke */
+  /* highlighter: amber text with a pitch-green marker stroke */
   .hl {
     color: var(--color-amber);
-    background-image: linear-gradient(transparent 64%, rgb(227 52 63 / 0.55) 64%, rgb(227 52 63 / 0.55) 86%, transparent 86%);
+    background-image: linear-gradient(transparent 66%, rgb(29 122 74 / 0.65) 66%, rgb(29 122 74 / 0.65) 88%, transparent 88%);
     padding: 0 0.06em;
   }
   /* On light/coloured panels an amber word would vanish, so it becomes an amber word on a dark plate. */
@@ -156,22 +156,18 @@
     box-decoration-break: clone;
   }
 
+  /* primary call to action — brand amber (red stays a small cricket accent, never an action colour) */
   .btn-ball {
-    @apply relative inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] text-white transition-transform duration-300 hover:-rotate-2 hover:scale-[1.04] active:scale-95;
+    @apply relative inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] text-pitch-950 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0;
     font-family: var(--font-cond);
     font-weight: 800;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    background: radial-gradient(circle at 30% 25%, #ff6b73, var(--color-ball) 55%, #9e1620);
-    box-shadow: 0 10px 30px -8px rgb(227 52 63 / 0.8);
+    background: linear-gradient(180deg, #ffc145, var(--color-amber));
+    box-shadow: 0 10px 28px -10px rgb(255 176 32 / 0.7);
   }
-  .btn-ball::after {
-    content: "";
-    position: absolute;
-    inset: 4px;
-    border-radius: 9999px;
-    border: 1.5px dashed rgb(255 255 255 / 0.6);
-    pointer-events: none;
+  .btn-ball:hover {
+    box-shadow: 0 14px 32px -10px rgb(255 176 32 / 0.85);
   }
   .btn-chalk {
     @apply inline-flex items-center gap-2 rounded-full border-2 border-chalk/80 px-7 py-3 text-[15px] text-chalk transition-all duration-300 hover:bg-chalk hover:text-pitch-950;

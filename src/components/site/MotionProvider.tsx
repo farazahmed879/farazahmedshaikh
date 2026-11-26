@@ -1,17 +1,16 @@
 "use client";
 
-import { LazyMotion } from "framer-motion";
-
-const loadFeatures = () => import("./motionFeatures").then((mod) => mod.default);
+import { LazyMotion, domAnimation } from "framer-motion";
 
 /**
- * Public pages use framer's lightweight `m` components; the animation features are fetched
- * after the page loads. `strict` makes any stray full `motion.*` component throw in development,
- * so the full library can't silently sneak back into the bundle.
+ * Public pages use framer's lightweight `m` components with only the `domAnimation` feature set
+ * (no drag/layout). The features ship with the page rather than loading afterwards, so content that
+ * starts hidden for its entrance animation can never get stuck waiting on an extra download.
+ * `strict` makes any stray full `motion.*` component throw in development.
  */
 export default function MotionProvider({ children }: { children: React.ReactNode }) {
   return (
-    <LazyMotion features={loadFeatures} strict>
+    <LazyMotion features={domAnimation} strict>
       {children}
     </LazyMotion>
   );

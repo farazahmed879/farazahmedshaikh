@@ -91,7 +91,7 @@ export default function Hero({ profile }: { profile: Profile }) {
               <p className="mt-5 flex items-center gap-2 text-sm">
                 <span className="cond text-chalk/50">Status:</span>
                 <span className={`led ${profile.availableForWork ? "led-green" : ""}`}>
-                  {profile.availableForWork ? "● NOT OUT" : "● RESTING"} — {profile.availabilityText}
+                  {profile.availableForWork ? "● Available" : "● Not available"} — {profile.availabilityText}
                 </span>
               </p>
             )}
@@ -103,7 +103,6 @@ export default function Hero({ profile }: { profile: Profile }) {
           name={first}
           label={profile.roles[0] || "All-rounder"}
           sub={profile.location}
-          stamp={profile.availableForWork ? "Not out*" : undefined}
         />
 
         <motion.div

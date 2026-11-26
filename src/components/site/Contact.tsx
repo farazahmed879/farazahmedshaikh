@@ -45,20 +45,20 @@ export default function Contact({ profile }: { profile: Profile }) {
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           index="06"
-          eyebrow="Make an appeal"
+          eyebrow="Get in touch"
           title={
             <>
-              <span className="hl">Howzat?</span> {profile.contactHeading}
+              {profile.contactHeading}
             </>
           }
           subtitle={profile.contactMessage}
         />
 
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.35fr]">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
           <Reveal className="space-y-4">
             {profile.email && (
               <a href={`mailto:${profile.email}`} className="board group flex items-center gap-4 p-5 transition-transform hover:-translate-y-1">
-                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-ball text-white">
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-amber text-pitch-950">
                   <HiOutlineMail className="h-7 w-7" />
                 </span>
                 <span className="min-w-0">
@@ -106,18 +106,18 @@ export default function Contact({ profile }: { profile: Profile }) {
                     ☝️
                   </motion.span>
                   <h3 className="font-display mt-4 text-6xl font-black text-pitch-950 uppercase">That&apos;s out!</h3>
-                  <p className="mt-2 max-w-sm text-lg text-pitch-900/75">Appeal given — your message is in. I&apos;ll get back to you soon.</p>
+                  <p className="mt-2 max-w-sm text-lg text-pitch-900/75">Thanks — your message has been sent. I&apos;ll get back to you soon.</p>
                   <button onClick={() => setStatus("idle")} className="cond mt-6 rounded-full border-2 border-pitch-950 px-6 py-3 text-sm text-pitch-950 hover:bg-pitch-950 hover:text-chalk">
                     Bowl another
                   </button>
                 </motion.div>
               ) : (
                 <motion.form key="form" onSubmit={onSubmit} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative space-y-5 pr-0 sm:pr-16">
-                  <p className="cond text-xs text-ball">Appeal form · send me a message</p>
+                  <p className="cond text-xs text-pitch-900/60">Send me a message</p>
                   <div className="grid gap-5 sm:grid-cols-2">
                     <label className="block">
                       <span className="cond block text-[11px] text-pitch-900/55">Your name</span>
-                      <input name="name" required maxLength={120} className={input} placeholder="Who's bowling?" />
+                      <input name="name" required maxLength={120} className={input} placeholder="Your name" />
                     </label>
                     <label className="block">
                       <span className="cond block text-[11px] text-pitch-900/55">Email</span>
@@ -135,7 +135,7 @@ export default function Contact({ profile }: { profile: Profile }) {
                   <input name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
                   {status === "error" && <p className="font-semibold text-ball">{errorMsg}</p>}
                   <button type="submit" disabled={status === "sending"} className="btn-ball disabled:opacity-60">
-                    {status === "sending" ? "Umpire is checking…" : "Appeal! Send it ☝️"}
+                    {status === "sending" ? "Sending…" : "Send message"}
                   </button>
                 </motion.form>
               )}

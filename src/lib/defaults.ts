@@ -211,7 +211,7 @@ export const defaultStory: Story = {
   dreamText:
     "My dream is to build something that outlives me — products that make everyday life easier for millions of people, and a team where young developers can grow the way I was given the chance to grow.",
   gallery: [],
-  connectTitle: "Let's be friends",
+  connectTitle: "Let's connect",
   connectText: "Whether it's about tech, cricket, or a cool idea — I'd love to hear from you. Find me on any of these.",
 };
 

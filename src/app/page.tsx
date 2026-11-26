@@ -35,7 +35,7 @@ export default async function Home() {
   // Broadcast ticker built from the content itself.
   const current = experiences.find((e) => /present|now|current/i.test(e.period));
   const ticker = [
-    current && `${current.role} at ${current.company} — not out since ${current.period.split(/[—–-]/)[0].trim()}`,
+    current && `${current.role} at ${current.company} — since ${current.period.split(/[—–-]/)[0].trim()}`,
     ...projects.map((p) => `${p.name}${p.subtitle ? ` — ${p.subtitle}` : ""}`),
   ].filter(Boolean) as string[];
   const tape = [...profile.roles, ...skills.flatMap((c) => c.skills.filter((s) => s.level >= 85).map((s) => s.name))];

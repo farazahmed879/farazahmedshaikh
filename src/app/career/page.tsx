@@ -31,7 +31,7 @@ export default async function CareerPage() {
     story.education.length > 0 && { id: "education", label: "Academy" },
     story.passions.length > 0 && { id: "passions", label: "Off the field" },
     (story.goals.length > 0 || story.dreamTitle) && { id: story.goals.length ? "future" : "dream", label: "The chase" },
-    { id: "connect", label: "Fan club" },
+    { id: "connect", label: "Connect" },
   ].filter(Boolean) as { id: string; label: string; href?: string }[];
 
   return (

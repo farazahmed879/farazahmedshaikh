@@ -73,8 +73,8 @@ export default function Navbar({
           <a href={brandHref} className="group flex items-center gap-2.5">
             <CricketBall className="h-7 w-7 transition-transform duration-700 group-hover:rotate-[360deg]" />
             <span className="font-display text-2xl font-black tracking-wide text-chalk uppercase">{brand}</span>
-            <span className="cond hidden items-center gap-1.5 rounded-md border border-ball/40 bg-ball/15 px-2 py-0.5 text-[10px] text-[#ff6b73] sm:inline-flex">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#ff6b73]" /> Live
+            <span className="cond hidden items-center gap-1.5 rounded-md border border-lime/30 bg-lime/10 px-2 py-0.5 text-[10px] text-lime sm:inline-flex">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-lime" /> Live
             </span>
           </a>
 

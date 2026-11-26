@@ -10,9 +10,9 @@ export default function Footer({ profile }: { profile: Profile }) {
           <div className="flex items-center gap-4">
             <CricketBall className="h-10 w-10" />
             <div>
-              <p className="font-display text-3xl font-black text-chalk uppercase">That&apos;s stumps!</p>
+              <p className="font-display text-3xl font-black text-chalk uppercase">{profile.name}</p>
               <p className="led text-xs">
-                © {new Date().getFullYear()} {profile.name.toUpperCase()}
+                © {new Date().getFullYear()} · All rights reserved
               </p>
             </div>
           </div>
@@ -31,7 +31,7 @@ export default function Footer({ profile }: { profile: Profile }) {
             ))}
           </div>
           <a href="#" className="cond text-xs text-chalk/60 transition hover:text-amber">
-            Back to the toss ↑
+            Back to top ↑
           </a>
         </div>
       </div>

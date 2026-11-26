@@ -8,14 +8,13 @@ import SectionHeading from "@/components/site/SectionHeading";
 import SocialIcon, { socialMeta } from "@/components/site/SocialIcon";
 import { CricketBall } from "@/components/site/cricket";
 import { kit } from "@/components/site/palette";
-import Highlight from "./Highlight";
+import Highlight, { Emphasis } from "./Highlight";
+import { useShowMore } from "@/components/site/ShowMore";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const view = { once: true, margin: "-80px" } as const;
 
 /* ---------------- Life chapters: over by over ---------------- */
-
-const BALLS = ["•", "1", "4", "•", "6", "2"];
 
 export function Chapters({ story }: { story: Story }) {
   return (
@@ -39,24 +38,9 @@ export function Chapters({ story }: { story: Story }) {
               <div className="chalk-card group p-6 transition-transform duration-300 hover:-rotate-[0.6deg] md:p-8">
                 <span className="absolute top-0 left-6 h-2 w-16 rounded-b-full" style={{ background: kit(i) }} />
                 <h3 className="font-display text-3xl font-black text-pitch-950 uppercase md:text-4xl">{c.title}</h3>
-                <p className="mt-3 text-lg leading-relaxed text-pitch-900/80">{c.description}</p>
-                <div className="mt-5 flex items-center gap-2">
-                  <span className="cond mr-1 text-[10px] text-pitch-900/45">This over</span>
-                  {BALLS.map((b, k) => (
-                    <motion.span
-                      key={k}
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={view}
-                      transition={{ delay: 0.3 + k * 0.08, type: "spring", stiffness: 300, damping: 15 }}
-                      className={`cond flex h-7 w-7 items-center justify-center rounded-full text-xs ${
-                        b === "6" ? "bg-ball text-white" : b === "4" ? "bg-amber text-pitch-950" : "border-2 border-pitch-950/20 text-pitch-900/70"
-                      }`}
-                    >
-                      {b}
-                    </motion.span>
-                  ))}
-                </div>
+                <p className="mt-3 text-lg leading-relaxed text-pitch-900/80">
+                  <Emphasis text={c.description} />
+                </p>
               </div>
             </motion.li>
           ))}
@@ -197,8 +181,8 @@ export function Passions({ story }: { story: Story }) {
 
         {story.funFacts.length > 0 && (
           <div className="board mt-16 p-6 sm:p-8">
-            <p className="cond flex items-center gap-2 text-xs text-[#ff6b73]">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-[#ff6b73]" /> Overheard in the commentary box 🎙️
+            <p className="cond flex items-center gap-2 text-xs text-lime">
+              Quick facts
             </p>
             <motion.ul
               initial="hidden"
@@ -242,11 +226,6 @@ export function Goals({ story }: { story: Story }) {
       <div className="mx-auto max-w-6xl">
         <SectionHeading index="05" eyebrow="The chase" title={<>Milestones I&apos;m <span className="hl">chasing</span></>} />
 
-        <div className="board dotmatrix mb-8 flex flex-wrap items-center justify-between gap-4 px-6 py-4">
-          <span className="cond text-xs text-chalk/60">Target</span>
-          <span className="led text-2xl sm:text-3xl">{MILESTONES[goals.length - 1]?.runs ?? "∞"} RUNS</span>
-          <span className="cond text-xs text-chalk/60">Overs left: plenty</span>
-        </div>
 
         {/* pitch with a rolling ball */}
         <div className="relative mb-10 hidden h-3 rounded-full bg-turf/30 md:block">
@@ -255,7 +234,7 @@ export function Goals({ story }: { story: Story }) {
             whileInView={{ width: "100%" }}
             viewport={view}
             transition={{ duration: 2, ease }}
-            className="h-full rounded-full bg-gradient-to-r from-amber via-pink to-sky"
+            className="h-full rounded-full bg-gradient-to-r from-amber to-grass"
           />
           <motion.div
             initial={{ left: "0%", rotate: 0 }}
@@ -341,13 +320,14 @@ export function Dream({ story }: { story: Story }) {
 
 export function Gallery({ story }: { story: Story }) {
   const photos = story.gallery.filter((g) => g.image);
+  const { shown, button: showMore } = useShowMore(photos, "photos", "moments");
   if (!photos.length) return null;
   return (
     <section id="moments" className="relative px-4 py-28 sm:px-6">
       <div className="mx-auto max-w-6xl">
         <SectionHeading index="06" eyebrow="Photo wall" title={<>Moments <span className="hl">off camera</span></>} />
         <div className="columns-1 gap-6 sm:columns-2 lg:columns-3">
-          {photos.map((p, i) => (
+          {shown.map((p, i) => (
             <motion.figure
               key={i}
               initial={{ opacity: 0, y: 30, rotate: 0 }}
@@ -371,12 +351,13 @@ export function Gallery({ story }: { story: Story }) {
             </motion.figure>
           ))}
         </div>
+        {showMore}
       </div>
     </section>
   );
 }
 
-/* ---------------- Connect: fan club ---------------- */
+/* ---------------- Connect ---------------- */
 
 function handleFrom(url: string) {
   try {
@@ -403,7 +384,7 @@ export function Connect({ story, profile }: { story: Story; profile: Profile }) 
   return (
     <section id="connect" className="relative px-4 py-28 sm:px-6">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading index="07" eyebrow="Join the fan club" title={story.connectTitle || "Let's connect"} subtitle={story.connectText} />
+        <SectionHeading index="07" eyebrow="Find me online" title={story.connectTitle || "Let's connect"} subtitle={story.connectText} />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c, i) => (
             <motion.a
@@ -422,7 +403,6 @@ export function Connect({ story, profile }: { story: Story; profile: Profile }) 
                 {c.icon}
               </span>
               <span className="min-w-0 flex-1">
-                <span className="cond block text-[10px] text-pitch-900/50">Member card · {String(i + 1).padStart(3, "0")}</span>
                 <span className="font-display block text-2xl leading-tight font-black text-pitch-950 uppercase">{c.label}</span>
                 <span className="block truncate text-sm text-pitch-900/60">{c.handle}</span>
               </span>

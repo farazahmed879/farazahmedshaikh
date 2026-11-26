@@ -49,7 +49,7 @@ export default function GithubRepos({ repos, username }: { repos: GithubRepo[]; 
                   <span className="cond text-[11px] text-chalk/40">{timeAgo(repo.pushed_at)}</span>
                 </div>
                 <h3 className="font-display mt-3 text-2xl leading-tight font-extrabold break-all text-chalk uppercase group-hover:text-amber">{repo.name}</h3>
-                <p className="mt-2 line-clamp-3 flex-1 text-sm text-chalk/60">{repo.description || "No description provided."}</p>
+                <p className="mt-2 line-clamp-3 flex-1 text-sm text-chalk/60">{repo.description || ""}</p>
                 <div className="cond mt-5 flex items-center gap-4 text-[11px] text-chalk/60">
                   {repo.language && (
                     <span className="rounded-md px-2 py-1 text-pitch-950" style={{ background: kit(i + 2) }}>

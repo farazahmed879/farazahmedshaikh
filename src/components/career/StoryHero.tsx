@@ -49,8 +49,8 @@ export default function StoryHero({ story, profile }: { story: Story; profile: P
               transition={{ duration: 0.8, delay: 1, ease }}
               className="board mt-10 max-w-xl p-5"
             >
-              <figcaption className="cond flex items-center gap-2 text-[11px] text-[#ff6b73]">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-[#ff6b73]" /> On air · Commentary box 🎙️
+              <figcaption className="cond flex items-center gap-2 text-[11px] text-lime">
+                My motto
               </figcaption>
               <blockquote className="font-display mt-3 text-3xl leading-tight font-extrabold text-amber uppercase">“{story.quote}”</blockquote>
               {story.quoteAuthor && <p className="cond mt-2 text-[11px] text-chalk/50">— {story.quoteAuthor}</p>}

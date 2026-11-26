@@ -14,8 +14,6 @@ export default function Skills({ categories }: { categories: SkillCategory[] }) 
   const [hover, setHover] = useState<number | null>(null);
   const current = categories[Math.min(active, categories.length - 1)];
   const skills = current?.skills ?? [];
-  const avg = skills.length ? skills.reduce((s, x) => s + x.level, 0) / skills.length : 0;
-  const total = skills.reduce((s, x) => s + runsFor(x.level), 0);
 
   // wagon wheel geometry (viewBox 400x400, batter at the centre)
   const C = 200;
@@ -36,7 +34,7 @@ export default function Skills({ categories }: { categories: SkillCategory[] }) 
               Where I <span className="hl">score</span> my runs
             </>
           }
-          subtitle="Every line is a shot. The longer it goes, the stronger the skill. Sixes are my best."
+          subtitle="Each line is a skill — the further it reaches, the deeper my experience."
         />
 
         <div className="mb-8 flex flex-wrap gap-2">
@@ -107,14 +105,6 @@ export default function Skills({ categories }: { categories: SkillCategory[] }) 
               </AnimatePresence>
               <circle cx={C} cy={C} r="7" fill="#e3343f" stroke="#f5efdc" strokeWidth="2" />
             </svg>
-            <div className="board absolute -right-2 -bottom-4 px-4 py-2 sm:-right-6">
-              <p className="cond text-[10px] text-chalk/50">Strike rate</p>
-              <p className="led text-2xl">{avg.toFixed(1)}</p>
-            </div>
-            <div className="board absolute -top-4 -left-2 px-4 py-2 sm:-left-6">
-              <p className="cond text-[10px] text-chalk/50">Runs</p>
-              <p className="led text-2xl">{total}</p>
-            </div>
           </div>
 
           {/* the legend */}
@@ -151,10 +141,10 @@ export default function Skills({ categories }: { categories: SkillCategory[] }) 
                     </span>
                     <span
                       className={`cond shrink-0 rounded-md px-2 py-1 text-[11px] ${
-                        runs === 6 ? "bg-ball text-white" : runs === 4 ? "bg-amber text-pitch-950" : "border border-chalk/25 text-chalk/70"
+                        runs === 6 ? "bg-amber text-pitch-950" : runs === 4 ? "border border-amber/60 text-amber" : "border border-chalk/25 text-chalk/70"
                       }`}
                     >
-                      {runs === 6 ? "SIX" : runs === 4 ? "FOUR" : `${runs} run${runs > 1 ? "s" : ""}`}
+                      {runs === 6 ? "Expert" : runs === 4 ? "Advanced" : runs >= 2 ? "Proficient" : "Learning"}
                     </span>
                   </li>
                 );

@@ -7,6 +7,7 @@ import { FaGithub } from "react-icons/fa6";
 import type { Project } from "@/lib/types";
 import SectionHeading from "./SectionHeading";
 import { kit } from "./palette";
+import { useShowMore } from "./ShowMore";
 
 export default function Projects({ items }: { items: Project[] }) {
   const [filter, setFilter] = useState("All");
@@ -19,6 +20,7 @@ export default function Projects({ items }: { items: Project[] }) {
   }, [items]);
 
   const visible = filter === "All" ? items : items.filter((p) => p.tags.includes(filter));
+  const { shown, button: showMore } = useShowMore(visible, "projects", "projects");
 
   return (
     <section id="projects" className="relative px-4 py-28 sm:px-6">
@@ -31,7 +33,7 @@ export default function Projects({ items }: { items: Project[] }) {
               Products I&apos;ve <span className="hl">shipped</span>
             </>
           }
-          subtitle="Every project is a match. Grab a ticket."
+          subtitle="Products I've designed, built and led — for clients, employers and my own ideas."
         />
 
         {filters.length > 2 && (
@@ -51,7 +53,7 @@ export default function Projects({ items }: { items: Project[] }) {
         )}
 
         <div key={filter} className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-          {visible.map((project, i) => (
+          {shown.map((project, i) => (
               <motion.div
                 key={project.id ?? project.name}
                 initial={{ opacity: 0, y: 50, rotate: i % 2 ? 3 : -3 }}
@@ -63,6 +65,7 @@ export default function Projects({ items }: { items: Project[] }) {
               </motion.div>
           ))}
         </div>
+        {showMore}
       </div>
     </section>
   );
