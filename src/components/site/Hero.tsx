@@ -99,7 +99,7 @@ export default function Hero({ profile }: { profile: Profile }) {
         </motion.div>
 
         <PlayerCard
-          photo={profile.photo}
+          photos={profile.photos?.length ? profile.photos : [profile.photo]}
           name={first}
           label={profile.roles[0] || "All-rounder"}
           sub={profile.location}

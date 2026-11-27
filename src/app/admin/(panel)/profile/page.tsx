@@ -16,7 +16,13 @@ const groups: { title: string; description: string; fields: Field[] }[] = [
       { name: "tagline", label: "Tagline", type: "textarea", rows: 2 },
       { name: "availabilityText", label: "Availability badge", type: "text", placeholder: "Open to new opportunities" },
       { name: "availableForWork", label: "Available for work (green pulse)", type: "boolean" },
-      { name: "photo", label: "Profile photo", type: "image" },
+      {
+        name: "photos",
+        label: "Player card photos",
+        type: "images",
+        max: 3,
+        help: "Up to 3 photos — they fade from one to the next on your player card. The first one is your main photo. Portrait (4:5) photos look best.",
+      },
       { name: "socials", label: "Social links", type: "socials" },
     ],
   },
@@ -78,7 +84,8 @@ export default function ProfilePage() {
 
   useEffect(() => {
     api<Profile>("/api/admin/profile")
-      .then(setProfile)
+      // older profiles only have the single `photo`; show it as the first carousel photo
+      .then((p) => setProfile({ ...p, photos: p.photos?.length ? p.photos : p.photo ? [p.photo] : [] }))
       .catch((e) => toast(e.message, "error"));
   }, [toast]);
 
@@ -86,8 +93,10 @@ export default function ProfilePage() {
     if (!profile) return;
     setSaving(true);
     try {
-      const cleaned = { ...profile, roles: profile.roles.filter(Boolean) };
-      setProfile(await api<Profile>("/api/admin/profile", { method: "PUT", json: cleaned }));
+      const photos = (profile.photos ?? []).filter(Boolean).slice(0, 3);
+      const cleaned = { ...profile, roles: profile.roles.filter(Boolean), photos, photo: photos[0] ?? "" };
+      const saved = await api<Profile>("/api/admin/profile", { method: "PUT", json: cleaned });
+      setProfile({ ...saved, photos: saved.photos?.length ? saved.photos : saved.photo ? [saved.photo] : [] });
       toast("Profile saved — your site is updated");
     } catch (e) {
       toast((e as Error).message, "error");
@@ -104,7 +113,7 @@ export default function ProfilePage() {
 
   return (
     <>
-      <PageHeader title="Profile & sections" description="Hero, about, contact details, visibility and SEO." actions={saveBtn} />
+      <PageHeader eyebrow="Portfolio" title="Profile & sections" description="Hero, about, contact details, visibility and SEO." actions={saveBtn} />
       {!profile ? (
         <div className="flex justify-center py-20">
           <Spinner />

@@ -20,6 +20,8 @@ export type Profile = {
   availableForWork: boolean;
   availabilityText: string;
   photo: string;
+  /** Up to 3 photos that rotate on the player card; `photo` mirrors the first one. */
+  photos?: string[];
   aboutHeading: string;
   bio: string;
   location: string;

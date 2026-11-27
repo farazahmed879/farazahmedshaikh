@@ -59,7 +59,7 @@ export default function StoryHero({ story, profile }: { story: Story; profile: P
         </div>
 
         <PlayerCard
-          photo={profile.photo}
+          photos={profile.photos?.length ? profile.photos : [profile.photo]}
           name={first}
           label={profile.roles[0] || "All-rounder"}
           sub={profile.location}

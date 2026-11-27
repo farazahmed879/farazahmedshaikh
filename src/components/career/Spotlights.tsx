@@ -65,55 +65,47 @@ function Spotlight({ item, index }: { item: StorySpotlight; index: number }) {
       className="relative overflow-hidden rounded-[2.25rem] border-[3px] border-pitch-950 text-pitch-950 shadow-[12px_12px_0_rgba(0,0,0,0.5)]"
       style={{ background: kit(index) }}
     >
-      {/* giant faded event number */}
+      {/* quiet event number in the corner */}
       <span
         aria-hidden
-        className={`font-display pointer-events-none absolute -bottom-16 text-[16rem] leading-none font-black text-pitch-950/[0.06] ${flip ? "left-4" : "right-4"}`}
+        className={`font-display pointer-events-none absolute -bottom-10 text-[11rem] leading-none font-black text-pitch-950/[0.05] ${flip ? "left-6" : "right-6"}`}
       >
         {String(index + 1).padStart(2, "0")}
       </span>
-      {/* sun-ray burst */}
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute -top-32 h-96 w-96 animate-[spin_40s_linear_infinite] rounded-full bg-[repeating-conic-gradient(rgba(3,20,13,0.06)_0deg_9deg,transparent_9deg_18deg)] ${
-          flip ? "-right-32" : "-left-32"
-        }`}
-      />
 
-      <div className={`relative grid gap-8 p-7 sm:p-10 lg:grid-cols-[1.15fr_1fr] lg:gap-12 lg:p-12 ${flip ? "lg:[&>*:first-child]:order-2" : ""}`}>
+      <div className={`relative grid gap-8 p-6 sm:p-10 lg:grid-cols-[1.2fr_1fr] lg:gap-12 lg:p-12 ${flip ? "lg:[&>*:first-child]:order-2" : ""}`}>
         {/* story */}
         <div>
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex items-center gap-3.5">
             <motion.span
-              variants={{ hover: { rotate: [0, -14, 14, -6, 0], scale: 1.1 } }}
-              transition={{ duration: 0.7 }}
-              className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-[3px] border-pitch-950 bg-chalk text-4xl shadow-[4px_4px_0_#03140d] sm:h-24 sm:w-24 sm:text-5xl"
+              variants={{ hover: { rotate: [0, -10, 10, -4, 0] } }}
+              transition={{ duration: 0.6 }}
+              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border-2 border-pitch-950 bg-chalk text-3xl shadow-[3px_3px_0_#03140d] sm:h-16 sm:w-16 sm:text-4xl"
             >
-              <span className="absolute -inset-2 animate-[spin_14s_linear_infinite] rounded-full border-2 border-dashed border-pitch-950/40" />
               {item.emoji}
             </motion.span>
-            <div>
-              <span className="cond inline-block rounded-full bg-pitch-950 px-3 py-1.5 text-[11px] text-amber">
+            <div className="min-w-0">
+              <span className="cond inline-block rounded-full bg-pitch-950 px-3 py-1 text-[10px] text-amber">
                 Main event {String(index + 1).padStart(2, "0")}
               </span>
-              {item.eyebrow && <p className="cond mt-2 text-xs text-pitch-950/70">{item.eyebrow}</p>}
+              {item.eyebrow && <p className="cond mt-1.5 truncate text-xs text-pitch-950/65">{item.eyebrow}</p>}
             </div>
           </div>
 
-          <h3 className="hl-plate font-display mt-6 text-5xl leading-[0.95] font-black uppercase sm:text-7xl">
+          <h3 className="hl-plate font-display mt-6 text-5xl leading-[0.95] font-black uppercase sm:text-6xl">
             <Highlight text={item.title} />
           </h3>
 
           <div className="mt-5 space-y-4">
             {lines(item.text.replace(/\n{2,}/g, "\n")).map((para, k) => (
-              <p key={k} className="text-lg leading-relaxed text-pitch-950/85">
+              <p key={k} className="max-w-xl text-[1.05rem] leading-relaxed text-pitch-950/85">
                 {para}
               </p>
             ))}
           </div>
 
           {points.length > 0 && (
-            <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
+            <ul className="mt-7 grid gap-2 sm:grid-cols-2">
               {points.map((p, k) => (
                 <motion.li
                   key={k}
@@ -121,9 +113,9 @@ function Spotlight({ item, index }: { item: StorySpotlight; index: number }) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 + k * 0.08, duration: 0.5, ease }}
-                  className="flex items-start gap-2.5 rounded-xl border-2 border-pitch-950/15 bg-chalk/55 px-3.5 py-2.5 font-semibold"
+                  className="flex items-start gap-2.5 rounded-xl bg-chalk/60 px-3.5 py-2.5 text-[0.95rem] font-semibold ring-1 ring-pitch-950/10"
                 >
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-pitch-950 text-[11px] text-amber">✓</span>
+                  <span className="mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-pitch-950 text-[10px] text-amber">✓</span>
                   <span className="leading-snug">{p}</span>
                 </motion.li>
               ))}
@@ -131,11 +123,11 @@ function Spotlight({ item, index }: { item: StorySpotlight; index: number }) {
           )}
         </div>
 
-        {/* quotes */}
+        {/* photos on top, quote card below */}
         {(quotes.length > 0 || photos.length > 0) && (
-          <div className="flex flex-col gap-7 self-center">
-            {quotes.length > 0 && <QuoteBoard quotes={quotes} />}
+          <div className={`flex flex-col gap-6 ${photos.length ? "self-start" : "self-center"}`}>
             {photos.length > 0 && <PhotoReel photos={photos} title={item.title.replace(/\*/g, "")} />}
+            {quotes.length > 0 && <QuoteBoard quotes={quotes} compact={photos.length > 0} />}
           </div>
         )}
       </div>
@@ -143,7 +135,7 @@ function Spotlight({ item, index }: { item: StorySpotlight; index: number }) {
   );
 }
 
-function QuoteBoard({ quotes }: { quotes: { text: string; author: string }[] }) {
+function QuoteBoard({ quotes, compact = false }: { quotes: { text: string; author: string }[]; compact?: boolean }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const many = quotes.length > 1;
@@ -160,14 +152,16 @@ function QuoteBoard({ quotes }: { quotes: { text: string; author: string }[] }) 
     <div
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
-      className="relative flex min-h-[18rem] flex-col rounded-[1.75rem] border-[3px] border-pitch-950 bg-pitch-950 p-8 text-chalk shadow-[8px_8px_0_rgba(3,20,13,0.35)] sm:p-10"
+      className={`relative flex flex-col rounded-[1.5rem] bg-pitch-950 text-chalk shadow-[6px_6px_0_rgba(3,20,13,0.3)] ${
+        compact ? "min-h-[12rem] p-6 sm:p-7" : "min-h-[15rem] p-7 sm:p-9"
+      }`}
     >
-      <span aria-hidden className="font-display pointer-events-none absolute -top-6 left-6 text-[9rem] leading-none text-amber">
-        “
-      </span>
-      <p className="cond relative mt-8 text-[11px] text-lime">Words I live by</p>
+      <p className="cond relative flex items-center gap-2 text-[11px] text-lime">
+        <span aria-hidden className="font-display text-4xl leading-none text-amber">“</span>
+        Words I live by
+      </p>
 
-      <div className="relative mt-4 flex flex-1 items-center">
+      <div className="relative mt-3 flex flex-1 items-center">
         <AnimatePresence mode="wait">
           <motion.figure
             key={active}
@@ -176,14 +170,14 @@ function QuoteBoard({ quotes }: { quotes: { text: string; author: string }[] }) 
             exit={{ opacity: 0, y: -18 }}
             transition={{ duration: 0.5, ease }}
           >
-            <blockquote className="text-2xl leading-snug font-semibold sm:text-[1.7rem]">{q.text}</blockquote>
-            {q.author && <figcaption className="cond mt-5 text-sm text-amber">— {q.author}</figcaption>}
+            <blockquote className={`leading-snug font-semibold ${compact ? "text-lg sm:text-xl" : "text-xl sm:text-2xl"}`}>{q.text}</blockquote>
+            {q.author && <figcaption className="cond mt-4 text-xs text-amber">— {q.author}</figcaption>}
           </motion.figure>
         </AnimatePresence>
       </div>
 
       {many && (
-        <div className="relative mt-8 flex items-center gap-2">
+        <div className="relative mt-6 flex items-center gap-2">
           {quotes.map((_, k) => (
             <button
               key={k}
@@ -234,7 +228,7 @@ function PhotoReel({ photos, title }: { photos: string[]; title: string }) {
     <div
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
-      className="relative rotate-[-1.2deg] rounded-[1.5rem] border-[3px] border-pitch-950 bg-chalk p-2.5 shadow-[8px_8px_0_rgba(3,20,13,0.35)] transition-transform duration-300 hover:rotate-0"
+      className="relative rounded-[1.5rem] border-2 border-pitch-950 bg-chalk p-2 shadow-[6px_6px_0_rgba(3,20,13,0.3)]"
     >
       <div
         onPointerDown={onSwipeStart}

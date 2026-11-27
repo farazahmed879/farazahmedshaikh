@@ -2,9 +2,10 @@
 
 import { createContext, useCallback, useContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
 
 export const inputCls =
-  "w-full rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-sm text-white placeholder:text-white/25 outline-none transition focus:border-violet-400/60 focus:ring-4 focus:ring-violet-500/10";
+  "w-full rounded-xl border border-white/10 bg-black/20 px-3.5 py-2.5 text-sm text-white placeholder:text-white/25 outline-none transition focus:border-amber/60 focus:ring-4 focus:ring-amber/10";
 
 export function Button({
   variant = "primary",
@@ -12,7 +13,7 @@ export function Button({
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "ghost" | "danger" }) {
   const styles = {
-    primary: "bg-gradient-to-r from-violet-600 to-indigo-500 text-white shadow-lg shadow-violet-900/30 hover:brightness-110",
+    primary: "bg-amber font-semibold text-[#03140d] shadow-lg shadow-amber/10 hover:brightness-105",
     ghost: "border border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:text-white",
     danger: "border border-rose-500/30 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20",
   }[variant];
@@ -25,15 +26,27 @@ export function Button({
 }
 
 export function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`rounded-2xl border border-white/[0.07] bg-white/[0.025] p-6 ${className}`}>{children}</div>;
+  return <div className={`rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5 shadow-[0_1px_0_rgba(255,255,255,0.03)_inset] sm:p-6 ${className}`}>{children}</div>;
 }
 
-export function PageHeader({ title, description, actions }: { title: string; description?: string; actions?: React.ReactNode }) {
+export function PageHeader({
+  title,
+  description,
+  actions,
+  eyebrow,
+}: {
+  title: string;
+  description?: string;
+  actions?: React.ReactNode;
+  /** Small label above the title, e.g. which part of the site this page edits. */
+  eyebrow?: string;
+}) {
   return (
-    <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <h1 className="font-display text-3xl font-semibold text-white">{title}</h1>
-        {description && <p className="mt-1.5 text-sm text-white/50">{description}</p>}
+    <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-white/[0.06] pb-6">
+      <div className="max-w-2xl">
+        {eyebrow && <p className="cond mb-2 text-[11px] tracking-[0.14em] text-amber uppercase">{eyebrow}</p>}
+        <h1 className="font-display text-4xl font-bold tracking-wide text-white uppercase">{title}</h1>
+        {description && <p className="mt-2 text-sm leading-relaxed text-white/50">{description}</p>}
       </div>
       {actions && <div className="flex gap-2">{actions}</div>}
     </div>
@@ -118,7 +131,7 @@ export function Modal({ open, onClose, title, children }: { open: boolean; onClo
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 34 }}
-            className="flex h-full w-full max-w-2xl flex-col border-l border-white/10 bg-[#0b0b13]"
+            className="flex h-full w-full max-w-2xl flex-col border-l border-white/10 bg-[#05170f]"
           >
             <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
               <h2 className="font-display text-lg font-semibold text-white">{title}</h2>
@@ -131,5 +144,25 @@ export function Modal({ open, onClose, title, children }: { open: boolean; onClo
         </motion.div>
       )}
     </AnimatePresence>
+  );
+}
+
+/** Password field with an eye button to show or hide what's typed. */
+export function PasswordInput({ className = "", ...props }: Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <div className="relative">
+      <input {...props} type={visible ? "text" : "password"} className={`${inputCls} pr-11 ${className}`} />
+      <button
+        type="button"
+        onClick={() => setVisible((v) => !v)}
+        aria-label={visible ? "Hide password" : "Show password"}
+        aria-pressed={visible}
+        title={visible ? "Hide password" : "Show password"}
+        className="absolute inset-y-0 right-0 flex w-11 items-center justify-center rounded-r-xl text-white/40 transition hover:text-white focus-visible:text-white focus-visible:outline-none"
+      >
+        {visible ? <HiOutlineEyeSlash className="h-5 w-5" /> : <HiOutlineEye className="h-5 w-5" />}
+      </button>
+    </div>
   );
 }

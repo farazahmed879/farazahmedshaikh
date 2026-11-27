@@ -15,6 +15,7 @@ export type Field =
       full?: boolean;
     }
   | { name: string; label: string; type: "skills" | "socials" | "stats"; help?: string; full?: boolean }
+  | { name: string; label: string; type: "images"; max?: number; help?: string; full?: boolean }
   | { name: string; label: string; type: "toggles"; options: { key: string; label: string }[]; help?: string; full?: boolean }
   | {
       name: string;
@@ -31,7 +32,7 @@ export function FieldsForm({ fields, value, onChange }: { fields: Field[]; value
   return (
     <div className="grid gap-5 sm:grid-cols-2">
       {fields.map((f) => {
-        const full = f.full ?? ["textarea", "image", "file", "tags", "lines", "skills", "socials", "stats", "toggles", "list"].includes(f.type);
+        const full = f.full ?? ["textarea", "image", "images", "file", "tags", "lines", "skills", "socials", "stats", "toggles", "list"].includes(f.type);
         return (
           <div key={f.name} className={full ? "sm:col-span-2" : ""}>
             {f.type !== "boolean" && <label className="mb-1.5 block text-sm font-medium text-white/70">{f.label}</label>}
@@ -90,6 +91,8 @@ function FieldInput({ field, value, onChange }: { field: Field; value: any; onCh
           onBlur={(e) => onChange(e.target.value.split("\n").map((s) => s.trim()).filter(Boolean))}
         />
       );
+    case "images":
+      return <ImagesInput value={value ?? []} onChange={onChange} max={field.max} />;
     case "skills":
       return <SkillsInput value={value ?? []} onChange={onChange} />;
     case "socials":
@@ -190,7 +193,7 @@ export function Toggle({ label, checked, onChange }: { label: string; checked: b
       className="flex w-full items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-left text-sm text-white/80 transition hover:bg-white/[0.06]"
     >
       {label}
-      <span className={`relative h-5 w-9 shrink-0 rounded-full transition ${checked ? "bg-violet-500" : "bg-white/15"}`}>
+      <span className={`relative h-5 w-9 shrink-0 rounded-full transition ${checked ? "bg-amber" : "bg-white/15"}`}>
         <span className={`absolute top-0.5 h-4 w-4 rounded-full bg-white transition-all ${checked ? "left-[18px]" : "left-0.5"}`} />
       </span>
     </button>
@@ -260,12 +263,17 @@ function UploadInput({ value, onChange, kind }: { value: string; onChange: (v: s
 }
 
 /** Several images (e.g. a photo carousel): upload many at once, reorder and remove. */
-function ImagesInput({ value, onChange }: { value: string[]; onChange: (v: string[]) => void }) {
+function ImagesInput({ value, onChange, max }: { value: string[]; onChange: (v: string[]) => void; max?: number }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(0);
   const toast = useToast();
 
-  async function uploadAll(files: File[]) {
+  const room = max ? Math.max(max - value.length, 0) : Infinity;
+
+  async function uploadAll(picked: File[]) {
+    const files = picked.slice(0, room);
+    if (files.length < picked.length) toast(`Only ${max} photos allowed — extra ones were skipped`, "error");
+    if (!files.length) return;
     setUploading(files.length);
     const urls: string[] = [];
     for (const file of files) {
@@ -314,13 +322,13 @@ function ImagesInput({ value, onChange }: { value: string[]; onChange: (v: strin
           ))}
         </div>
       )}
-      <Button type="button" variant="ghost" onClick={() => fileRef.current?.click()} disabled={uploading > 0}>
+      <Button type="button" variant="ghost" onClick={() => fileRef.current?.click()} disabled={uploading > 0 || room === 0}>
         {uploading > 0 ? (
           <>
             <Spinner /> Uploading {uploading}…
           </>
         ) : (
-          "+ Add photos"
+          room === 0 ? `Maximum ${max} photos` : max ? `+ Add photos (${value.length}/${max})` : "+ Add photos"
         )}
       </Button>
       <input
@@ -349,9 +357,9 @@ function TagsInput({ value, onChange, placeholder }: { value: string[]; onChange
   return (
     <div className={`${inputCls} flex flex-wrap items-center gap-1.5 py-2`}>
       {value.map((t) => (
-        <span key={t} className="inline-flex items-center gap-1 rounded-lg bg-violet-500/20 px-2 py-1 text-xs text-violet-100">
+        <span key={t} className="inline-flex items-center gap-1 rounded-lg bg-amber/15 px-2 py-1 text-xs text-amber">
           {t}
-          <button type="button" onClick={() => onChange(value.filter((x) => x !== t))} className="text-violet-200/60 hover:text-white" aria-label={`Remove ${t}`}>
+          <button type="button" onClick={() => onChange(value.filter((x) => x !== t))} className="text-amber/60 hover:text-white" aria-label={`Remove ${t}`}>
             ✕
           </button>
         </span>
@@ -446,7 +454,7 @@ function SkillsInput({ value, onChange }: { value: { name: string; level: number
             max={100}
             value={s.level}
             onChange={(e) => update({ level: Number(e.target.value) })}
-            className="w-32 accent-violet-500"
+            className="w-32 accent-[#ffb020]"
           />
           <span className="w-10 text-right text-xs text-white/50 tabular-nums">{s.level}%</span>
         </>
@@ -466,7 +474,7 @@ function SocialsInput({ value, onChange }: { value: { platform: string; url: str
         <>
           <select className={`${inputCls} w-44`} value={s.platform} onChange={(e) => update({ platform: e.target.value })}>
             {Object.entries(SOCIAL_PLATFORMS).map(([key, { label }]) => (
-              <option key={key} value={key} className="bg-[#0b0b13]">
+              <option key={key} value={key} className="bg-[#05170f]">
                 {label}
               </option>
             ))}

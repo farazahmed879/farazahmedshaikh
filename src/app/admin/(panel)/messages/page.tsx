@@ -41,7 +41,7 @@ export default function MessagesPage() {
 
   return (
     <>
-      <PageHeader title="Messages" description={messages ? `${messages.length} total · ${unread} unread` : "From your contact form"} />
+      <PageHeader eyebrow="Inbox & account" title="Messages" description={messages ? `${messages.length} total · ${unread} unread` : "From your contact form"} />
       {!messages ? (
         <div className="flex justify-center py-20">
           <Spinner />
@@ -53,7 +53,7 @@ export default function MessagesPage() {
           {messages.map((m) => (
             <li key={m.id} className="overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.025]">
               <button onClick={() => toggle(m)} className="flex w-full items-center gap-4 p-4 text-left transition hover:bg-white/[0.03]">
-                <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${m.read ? "bg-white/10" : "bg-violet-400 shadow-[0_0_10px_rgba(167,139,250,0.8)]"}`} />
+                <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${m.read ? "bg-white/10" : "bg-amber shadow-[0_0_10px_rgba(255,176,32,0.7)]"}`} />
                 <div className="min-w-0 flex-1">
                   <p className={`truncate text-sm ${m.read ? "text-white/70" : "font-semibold text-white"}`}>
                     {m.name} <span className="font-normal text-white/40">&lt;{m.email}&gt;</span>
@@ -73,7 +73,7 @@ export default function MessagesPage() {
                       <div className="mt-5 flex flex-wrap gap-2">
                         <a
                           href={`mailto:${m.email}?subject=${encodeURIComponent("Re: " + (m.subject || "your message"))}`}
-                          className="inline-flex items-center rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white"
+                          className="inline-flex items-center rounded-xl bg-amber px-4 py-2 text-sm font-semibold text-[#03140d] hover:brightness-105"
                         >
                           Reply by email
                         </a>

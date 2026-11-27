@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { inputCls, Spinner } from "@/components/admin/ui";
+import { inputCls, PasswordInput, Spinner } from "@/components/admin/ui";
+import { CricketBall } from "@/components/site/cricket";
 
 export default function LoginPage() {
   const [error, setError] = useState("");
@@ -29,8 +30,8 @@ export default function LoginPage() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#06060b] px-4">
-      <div className="absolute -top-40 -left-40 h-[500px] w-[500px] animate-aurora rounded-full bg-violet-600/25 blur-3xl" />
-      <div className="absolute -right-40 -bottom-40 h-[500px] w-[500px] animate-aurora rounded-full bg-cyan-500/15 blur-3xl" />
+      <div className="absolute -top-40 -left-40 h-[500px] w-[500px] animate-aurora rounded-full bg-[#1d7a4a]/30 blur-3xl" />
+      <div className="absolute -right-40 -bottom-40 h-[500px] w-[500px] animate-aurora rounded-full bg-amber/10 blur-3xl" />
       <motion.form
         onSubmit={onSubmit}
         initial={{ opacity: 0, y: 24, scale: 0.97 }}
@@ -39,20 +40,18 @@ export default function LoginPage() {
         className="glass relative w-full max-w-sm rounded-3xl p-8"
       >
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 text-xl font-bold text-white">
-            ✦
-          </div>
-          <h1 className="font-display text-2xl font-semibold text-white">Admin panel</h1>
+          <CricketBall className="mx-auto mb-4 h-12 w-12" />
+          <h1 className="font-display text-3xl font-bold tracking-wide text-white uppercase">Admin panel</h1>
           <p className="mt-1 text-sm text-white/50">Sign in to manage your portfolio</p>
         </div>
         <div className="space-y-4">
           <input name="username" required autoComplete="username" placeholder="Username" className={inputCls} autoCapitalize="none" />
-          <input name="password" type="password" required autoComplete="current-password" placeholder="Password" className={inputCls} />
+          <PasswordInput name="password" required autoComplete="current-password" placeholder="Password" />
           {error && <p className="text-sm text-rose-400">{error}</p>}
           <button
             type="submit"
             disabled={loading}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 disabled:opacity-60"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-amber py-2.5 text-sm font-semibold text-[#03140d] transition hover:brightness-105 disabled:opacity-60"
           >
             {loading && <Spinner />} Sign in
           </button>

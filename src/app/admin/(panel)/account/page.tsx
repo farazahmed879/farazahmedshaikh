@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button, Card, PageHeader, Spinner, api, inputCls, useToast } from "@/components/admin/ui";
+import { Button, Card, PageHeader, PasswordInput, Spinner, api, inputCls, useToast } from "@/components/admin/ui";
 
 export default function AccountPage() {
   const [username, setUsername] = useState("");
@@ -47,7 +47,7 @@ export default function AccountPage() {
 
   return (
     <>
-      <PageHeader title="Account & password" description="Change the username and password you use to sign in." />
+      <PageHeader eyebrow="Inbox & account" title="Account & password" description="Change the username and password you use to sign in." />
       {!loaded ? (
         <div className="flex justify-center py-20">
           <Spinner />
@@ -62,26 +62,24 @@ export default function AccountPage() {
             <div className="grid gap-5 sm:grid-cols-2">
               <label className="block">
                 <span className="mb-1.5 block text-sm font-medium text-white/70">New password</span>
-                <input
+                <PasswordInput
                   name="newPassword"
-                  type="password"
                   minLength={8}
                   required={isDefault}
                   autoComplete="new-password"
                   placeholder={isDefault ? "Required" : "Leave blank to keep"}
-                  className={inputCls}
                 />
               </label>
               <label className="block">
                 <span className="mb-1.5 block text-sm font-medium text-white/70">Confirm new password</span>
-                <input name="confirmPassword" type="password" autoComplete="new-password" className={inputCls} />
+                <PasswordInput name="confirmPassword" autoComplete="new-password" />
               </label>
             </div>
             <p className="text-xs text-white/40">At least 8 characters. Changing your login signs out every other device.</p>
             <hr className="border-white/5" />
             <label className="block">
               <span className="mb-1.5 block text-sm font-medium text-white/70">Current password</span>
-              <input name="currentPassword" type="password" required autoComplete="current-password" className={inputCls} />
+              <PasswordInput name="currentPassword" required autoComplete="current-password" />
             </label>
             {error && <p className="text-sm text-rose-400">{error}</p>}
             <Button type="submit" disabled={saving}>

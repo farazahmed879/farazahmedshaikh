@@ -85,6 +85,7 @@ export default function CollectionManager({
   return (
     <>
       <PageHeader
+        eyebrow="Portfolio"
         title={title}
         description={description}
         actions={

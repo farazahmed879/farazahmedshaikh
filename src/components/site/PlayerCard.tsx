@@ -1,12 +1,16 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { m as motion } from "framer-motion";
 import Image from "next/image";
 import { CricketBall } from "./cricket";
 import { KIT } from "./palette";
 
+const PHOTO_MS = 4500;
+
 type Props = {
-  photo: string;
+  /** Up to 3 photos; with more than one they crossfade automatically. */
+  photos: string[];
   name: string;
   label: string;
   sub?: string;
@@ -16,7 +20,20 @@ type Props = {
 };
 
 /** A collectible player trading card with 3D tilt, a spinning ball and optional floating emoji stickers. */
-export default function PlayerCard({ photo, name, label, sub, stamp, stickers = [], delay = 0.4 }: Props) {
+export default function PlayerCard({ photos: allPhotos, name, label, sub, stamp, stickers = [], delay = 0.4 }: Props) {
+  const photos = allPhotos.filter(Boolean).slice(0, 3);
+  const [shown, setShown] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const many = photos.length > 1;
+
+  useEffect(() => {
+    if (!many || paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // a fresh timer after every change, so clicking a dot always gives that photo its full time
+    const t = setTimeout(() => setShown((i) => (i + 1) % photos.length), PHOTO_MS);
+    return () => clearTimeout(t);
+  }, [many, paused, photos.length, shown]);
+
   // 3D tilt follows the pointer via CSS variables; a CSS transition gives it the springy ease.
   const tilt = (el: HTMLElement, x: number, y: number) => {
     el.style.setProperty("--rx", `${10 - y * 20}deg`);
@@ -79,20 +96,41 @@ export default function PlayerCard({ photo, name, label, sub, stamp, stickers = 
         </div>
 
         <div className="relative overflow-hidden rounded-2xl border-2 border-pitch-950 bg-pitch-800">
-          {photo ? (
-            <div className="relative aspect-[4/5] w-full">
-              {/* Above the fold, so preload it; Next.js serves a resized WebP/AVIF copy. */}
-              <Image src={photo} alt={name} fill preload sizes="(max-width: 640px) 80vw, 360px" className="object-cover" />
-            </div>
-          ) : (
-            <div className="aspect-[4/5] w-full" />
-          )}
+          <div className="relative aspect-[4/5] w-full" onPointerEnter={() => setPaused(true)} onPointerLeave={() => setPaused(false)}>
+            {photos.map((src, i) => (
+              // Photos are stacked and crossfade. The first is preloaded (above the fold); Next.js serves resized WebP/AVIF copies.
+              <Image
+                key={src + i}
+                src={src}
+                alt={i === 0 ? name : `${name} — photo ${i + 1}`}
+                fill
+                preload={i === 0}
+                sizes="(max-width: 640px) 80vw, 360px"
+                aria-hidden={i !== shown}
+                className={`object-cover transition-opacity duration-1000 ease-in-out ${i === shown ? "opacity-100" : "opacity-0"}`}
+              />
+            ))}
+          </div>
           <div
             aria-hidden
             style={{ left: "var(--shine, 50%)" }}
             className="pointer-events-none absolute -inset-y-10 w-24 -translate-x-1/2 rotate-12 bg-white/25 blur-xl transition-[left] duration-300 ease-out"
           />
-          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
+          {many && (
+            <div className="absolute inset-x-0 bottom-2.5 z-10 flex justify-center gap-1.5">
+              {photos.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setShown(i)}
+                  aria-label={`Show photo ${i + 1}`}
+                  aria-current={i === shown}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${i === shown ? "w-5 bg-chalk" : "w-1.5 bg-chalk/50 hover:bg-chalk/80"}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="px-1 pt-3 pb-1">

@@ -11,6 +11,7 @@ const ProfileSchema = new Schema(
     availableForWork: { type: Boolean, default: true },
     availabilityText: { type: String, default: "" },
     photo: { type: String, default: "" },
+    photos: { type: [String], default: [] },
     aboutHeading: { type: String, default: "" },
     bio: { type: String, default: "" },
     location: { type: String, default: "" },
@@ -140,6 +141,9 @@ const AdminUserSchema = new Schema(
 );
 
 function model(name: string, schema: Schema): Model<any> {
+  // In development, hot reload re-runs this file but mongoose keeps the first compiled model, so a newly
+  // added field would be silently dropped on save. Re-register the model so schema edits apply immediately.
+  if (process.env.NODE_ENV !== "production" && mongoose.models[name]) mongoose.deleteModel(name);
   return (mongoose.models[name] as Model<any>) ?? mongoose.model(name, schema);
 }
 
