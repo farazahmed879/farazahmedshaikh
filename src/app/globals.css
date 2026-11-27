@@ -203,3 +203,71 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Cricket-bat cursor on the public pages, for mouse users only (touch screens are unaffected).
+   Links and buttons show the bat raised, as the "clickable" cue; text fields keep the text cursor. */
+@media (pointer: fine) {
+  .bat-cursor {
+    cursor: url("/cursors/bat.svg") 5 5, auto;
+  }
+  .bat-cursor :is(a, button, [role="button"], label, summary, select) {
+    cursor: url("/cursors/bat-ready.svg") 11 2, pointer;
+  }
+  .bat-cursor :is(input, textarea) {
+    cursor: text;
+  }
+}
+
+/* Click "shot": a quick swing streak and an impact ring where bat meets ball (added by BallCursor). */
+.shot-swing,
+.shot-ring {
+  position: fixed;
+  z-index: 79;
+  pointer-events: none;
+  border-radius: 9999px;
+  translate: -50% -50%;
+}
+.shot-swing {
+  width: 46px;
+  height: 46px;
+  border: 3px solid transparent;
+  border-top-color: rgb(245 239 220 / 0.85);
+  border-right-color: rgb(245 239 220 / 0.35);
+  animation: shot-swing 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.shot-ring {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--color-amber);
+  animation: shot-ring 0.45s ease-out forwards;
+}
+@keyframes shot-swing {
+  from { rotate: -120deg; opacity: 1; }
+  to { rotate: 40deg; opacity: 0; }
+}
+@keyframes shot-ring {
+  from { scale: 0.4; opacity: 0.95; }
+  to { scale: 2.6; opacity: 0; }
+}
+
+/* The swinging bat shown in place of the cursor for one stroke: backlift, downswing through the ball,
+   follow-through, settle. It pivots on the handle like a real bat. */
+html.batting,
+html.batting * {
+  cursor: none !important;
+}
+.shot-bat {
+  position: fixed;
+  z-index: 81;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  animation: bat-swing 0.42s cubic-bezier(0.3, 0, 0.2, 1) forwards;
+}
+@keyframes bat-swing {
+  0% { rotate: 0deg; }
+  30% { rotate: 38deg; }   /* backlift */
+  45% { rotate: -55deg; }  /* contact & through the line */
+  70% { rotate: -75deg; }  /* follow-through */
+  100% { rotate: 0deg; }   /* back to the stance */
+}

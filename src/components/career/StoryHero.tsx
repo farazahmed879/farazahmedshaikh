@@ -13,9 +13,9 @@ export default function StoryHero({ story, profile }: { story: Story; profile: P
   const [first] = profile.name.split(" ");
 
   return (
-    <section id="intro" className="relative flex min-h-screen items-center px-4 pt-32 pb-20 sm:px-6">
+    <section id="intro" className="relative flex items-center px-4 pt-24 pb-14 sm:px-6 sm:pt-32 lg:min-h-screen lg:pb-20">
       <CrowdFlashes count={22} />
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-16 lg:grid-cols-[1.25fr_1fr]">
+      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
         <div>
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2, ease }} className="flex items-center gap-3">
             <span className="led rounded-md border border-amber/30 bg-black/40 px-2 py-0.5 text-sm">BIO</span>
@@ -58,13 +58,16 @@ export default function StoryHero({ story, profile }: { story: Story; profile: P
           )}
         </div>
 
-        <PlayerCard
-          photos={profile.photos?.length ? profile.photos : [profile.photo]}
-          name={first}
-          label={profile.roles[0] || "All-rounder"}
-          sub={profile.location}
-          stickers={[...(story.spotlights ?? []), ...story.passions].map((p) => p.emoji).filter(Boolean)}
-        />
+        {/* on phones the photo card comes first, right under the navbar; on desktop it sits on the right */}
+        <div className="order-first lg:order-none">
+          <PlayerCard
+            photos={profile.photos?.length ? profile.photos : [profile.photo]}
+            name={first}
+            label={profile.roles[0] || "All-rounder"}
+            sub={profile.location}
+            stickers={[...(story.spotlights ?? []), ...story.passions].map((p) => p.emoji).filter(Boolean)}
+          />
+        </div>
       </div>
     </section>
   );

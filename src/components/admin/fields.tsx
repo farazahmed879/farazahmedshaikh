@@ -404,9 +404,9 @@ function RowList<T>({
   return (
     <div className="space-y-2">
       {items.map((item, i) => (
-        <div key={i} className="flex items-center gap-2">
-          <div className="flex flex-1 items-center gap-2">{render(item, (patch) => onChange(items.map((x, k) => (k === i ? { ...x, ...patch } : x))))}</div>
-          <div className="flex shrink-0 gap-1">
+        <div key={i} className="flex flex-col gap-2 rounded-xl border border-white/[0.05] p-2 sm:flex-row sm:items-center sm:border-0 sm:p-0">
+          <div className="flex min-w-0 flex-1 flex-col gap-2 sm:flex-row sm:items-center">{render(item, (patch) => onChange(items.map((x, k) => (k === i ? { ...x, ...patch } : x))))}</div>
+          <div className="flex shrink-0 justify-end gap-1">
             <IconBtn onClick={() => move(i, -1)} label="Move up">↑</IconBtn>
             <IconBtn onClick={() => move(i, 1)} label="Move down">↓</IconBtn>
             <IconBtn onClick={() => onChange(items.filter((_, k) => k !== i))} label="Remove" danger>
@@ -454,7 +454,7 @@ function SkillsInput({ value, onChange }: { value: { name: string; level: number
             max={100}
             value={s.level}
             onChange={(e) => update({ level: Number(e.target.value) })}
-            className="w-32 accent-[#ffb020]"
+            className="w-full accent-[#ffb020] sm:w-32"
           />
           <span className="w-10 text-right text-xs text-white/50 tabular-nums">{s.level}%</span>
         </>
@@ -472,7 +472,7 @@ function SocialsInput({ value, onChange }: { value: { platform: string; url: str
       addLabel="Add social link"
       render={(s, update) => (
         <>
-          <select className={`${inputCls} w-44`} value={s.platform} onChange={(e) => update({ platform: e.target.value })}>
+          <select className={`${inputCls} sm:w-44 sm:shrink-0`} value={s.platform} onChange={(e) => update({ platform: e.target.value })}>
             {Object.entries(SOCIAL_PLATFORMS).map(([key, { label }]) => (
               <option key={key} value={key} className="bg-[#05170f]">
                 {label}
@@ -495,7 +495,7 @@ function StatsInput({ value, onChange }: { value: { label: string; value: string
       addLabel="Add stat"
       render={(s, update) => (
         <>
-          <input className={`${inputCls} w-28`} value={s.value} placeholder="9+" onChange={(e) => update({ value: e.target.value })} />
+          <input className={`${inputCls} sm:w-28 sm:shrink-0`} value={s.value} placeholder="9+" onChange={(e) => update({ value: e.target.value })} />
           <input className={inputCls} value={s.label} placeholder="Years of experience" onChange={(e) => update({ label: e.target.value })} />
         </>
       )}

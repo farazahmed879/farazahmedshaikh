@@ -42,7 +42,7 @@ export default async function Home() {
 
   return (
     <MotionProvider>
-      <div className="relative min-h-screen overflow-x-clip">
+      <div className="bat-cursor relative min-h-screen overflow-x-clip">
         <Background />
         <BallCursor />
         <Navbar brand={profile.shortName || profile.name} links={nav} resumeUrl={profile.resumeUrl} />

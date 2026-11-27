@@ -56,7 +56,7 @@ export default function PlayerCard({ photos: allPhotos, name, label, sub, stamp,
       initial={{ opacity: 0, y: 60, rotate: 8 }}
       animate={{ opacity: 1, y: 0, rotate: -3 }}
       transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="relative mx-auto w-64 sm:w-80"
+      className="relative mx-auto w-56 sm:w-72 lg:w-80"
       style={{ perspective: 1000 }}
     >
       {stickers.slice(0, spots.length).map((s, i) => (

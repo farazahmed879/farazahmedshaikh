@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- cricket bat, blade tip at the top-left (the click point), handle at the bottom-right -->
+  <g transform="rotate(-45 16 16)">
+    <rect x="11.5" y="0.75" width="9" height="20.5" rx="3.5" fill="#e6c487" stroke="#03140d" stroke-width="1.5"/>
+    <rect x="14" y="2.5" width="1.6" height="16.5" rx="0.8" fill="#f6e2b6" opacity="0.9"/>
+    <rect x="14.25" y="20.5" width="3.5" height="10.5" rx="1.75" fill="#1c1c1c" stroke="#03140d" stroke-width="1"/>
+    <path d="M14.4 23.5h3.2M14.4 26h3.2M14.4 28.5h3.2" stroke="#ffb020" stroke-width="0.9"/>
+  </g>
+</svg>

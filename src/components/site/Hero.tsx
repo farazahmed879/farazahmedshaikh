@@ -17,9 +17,9 @@ export default function Hero({ profile }: { profile: Profile }) {
   const year = new Date().getFullYear();
 
   return (
-    <section id="home" className="relative flex min-h-screen items-center px-4 pt-28 pb-16 sm:px-6">
+    <section id="home" className="relative flex items-center px-4 pt-24 pb-14 sm:px-6 sm:pt-28 lg:min-h-screen lg:pb-16">
       <CrowdFlashes />
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-14 lg:grid-cols-[1.35fr_1fr]">
+      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-8 sm:gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-14">
         {/* the scoreboard */}
         <motion.div
           initial={{ opacity: 0, rotateX: -35, y: 40 }}
@@ -98,12 +98,15 @@ export default function Hero({ profile }: { profile: Profile }) {
           </div>
         </motion.div>
 
-        <PlayerCard
-          photos={profile.photos?.length ? profile.photos : [profile.photo]}
-          name={first}
-          label={profile.roles[0] || "All-rounder"}
-          sub={profile.location}
-        />
+        {/* on phones the photo card comes first, right under the navbar; on desktop it sits on the right */}
+        <div className="order-first lg:order-none">
+          <PlayerCard
+            photos={profile.photos?.length ? profile.photos : [profile.photo]}
+            name={first}
+            label={profile.roles[0] || "All-rounder"}
+            sub={profile.location}
+          />
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

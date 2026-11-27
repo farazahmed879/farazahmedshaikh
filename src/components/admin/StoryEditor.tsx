@@ -78,16 +78,16 @@ export default function StoryEditor({ slug }: { slug: string }) {
             <FieldsForm fields={section.fields} value={story} onChange={setStory} />
           </Card>
 
-          <div className="sticky bottom-4 z-10 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/[0.07] bg-[#061a11]/90 p-3 backdrop-blur">
-            <div className="flex gap-2">
+          <div className="sticky bottom-3 z-10 flex items-center justify-between gap-2 rounded-2xl border border-white/[0.07] bg-[#061a11]/95 p-2 backdrop-blur sm:bottom-4 sm:p-3">
+            <div className="flex min-w-0 gap-1 sm:gap-2">
               {prev && (
-                <Link href={`/admin/career/${prev.slug}`} className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm text-white/60 hover:bg-white/5 hover:text-white">
-                  <HiOutlineArrowLeft className="h-4 w-4" /> {prev.label}
+                <Link href={`/admin/career/${prev.slug}`} title={prev.label} className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm text-white/60 hover:bg-white/5 hover:text-white">
+                  <HiOutlineArrowLeft className="h-4 w-4 shrink-0" /> <span className="hidden sm:inline">{prev.label}</span>
                 </Link>
               )}
               {next && (
-                <Link href={`/admin/career/${next.slug}`} className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm text-white/60 hover:bg-white/5 hover:text-white">
-                  {next.label} <HiOutlineArrowRight className="h-4 w-4" />
+                <Link href={`/admin/career/${next.slug}`} title={next.label} className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm text-white/60 hover:bg-white/5 hover:text-white">
+                  <span className="hidden sm:inline">{next.label}</span> <HiOutlineArrowRight className="h-4 w-4 shrink-0" />
                 </Link>
               )}
             </div>

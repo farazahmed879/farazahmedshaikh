@@ -6,7 +6,7 @@ import MotionProvider from "@/components/site/MotionProvider";
 export default function NotFound() {
   return (
     <MotionProvider>
-      <div className="relative flex min-h-screen flex-col items-center justify-center px-6 text-center">
+      <div className="bat-cursor relative flex min-h-screen flex-col items-center justify-center px-6 text-center">
         <Background />
         <div className="relative z-10 flex flex-col items-center">
           <Stumps out className="h-40 w-28" />

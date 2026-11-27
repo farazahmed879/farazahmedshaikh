@@ -21,7 +21,7 @@ export function Chapters({ story }: { story: Story }) {
     <section id="chapters" className="relative px-4 py-28 sm:px-6">
       <div className="mx-auto max-w-5xl">
         <SectionHeading index="02" eyebrow="Over by over" title={<>The innings of <span className="hl">my life</span></>} />
-        <ol className="relative space-y-8 before:absolute before:top-4 before:bottom-4 before:left-[44px] before:w-1 before:rounded-full before:bg-[repeating-linear-gradient(to_bottom,#f5efdc_0_10px,transparent_10px_20px)] before:opacity-20 md:before:left-[88px]">
+        <ol className="relative space-y-8 before:absolute before:top-4 before:bottom-4 before:left-[88px] before:hidden before:w-1 before:rounded-full before:bg-[repeating-linear-gradient(to_bottom,#f5efdc_0_10px,transparent_10px_20px)] before:opacity-20 md:before:block">
           {story.chapters.map((c, i) => (
             <motion.li
               key={i}
@@ -29,16 +29,16 @@ export function Chapters({ story }: { story: Story }) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={view}
               transition={{ duration: 0.7, ease }}
-              className="relative grid grid-cols-[90px_1fr] gap-5 md:grid-cols-[180px_1fr] md:gap-8"
+              className="relative grid grid-cols-1 gap-3 md:grid-cols-[180px_1fr] md:gap-8"
             >
-              <div className="board flex h-fit flex-col items-center justify-center px-2 py-4">
+              <div className="board flex h-fit w-fit items-baseline gap-2 px-4 py-2 md:w-auto md:flex-col md:items-center md:justify-center md:gap-0 md:px-2 md:py-4">
                 <span className="cond text-[10px] text-chalk/45">Over {i + 1}</span>
-                <span className="led mt-1 text-2xl md:text-4xl">{c.year}</span>
+                <span className="led text-xl md:mt-1 md:text-4xl">{c.year}</span>
               </div>
-              <div className="chalk-card group p-6 transition-transform duration-300 hover:-rotate-[0.6deg] md:p-8">
+              <div className="chalk-card group p-5 transition-transform duration-300 hover:-rotate-[0.6deg] sm:p-6 md:p-8">
                 <span className="absolute top-0 left-6 h-2 w-16 rounded-b-full" style={{ background: kit(i) }} />
-                <h3 className="font-display text-3xl font-black text-pitch-950 uppercase md:text-4xl">{c.title}</h3>
-                <p className="mt-3 text-lg leading-relaxed text-pitch-900/80">
+                <h3 className="font-display text-2xl font-black text-pitch-950 uppercase sm:text-3xl md:text-4xl">{c.title}</h3>
+                <p className="mt-3 leading-relaxed text-pitch-900/80 sm:text-lg">
                   <Emphasis text={c.description} />
                 </p>
               </div>
@@ -73,7 +73,7 @@ export function Education({ story }: { story: Story }) {
                 <HiOutlineAcademicCap className="h-8 w-8" />
               </div>
               {e.period && <p className="cond mt-6 text-xs text-pitch-950/70">{e.period}</p>}
-              <h3 className="font-display mt-2 text-5xl leading-none font-black uppercase">{e.institution}</h3>
+              <h3 className="font-display mt-2 text-3xl leading-[0.95] font-black uppercase sm:text-4xl lg:text-5xl">{e.institution}</h3>
               {e.degree && <p className="cond mt-2 text-sm">{e.degree}</p>}
               {e.description && <p className="mt-4 max-w-2xl text-lg leading-relaxed text-pitch-950/80">{e.description}</p>}
             </motion.article>
